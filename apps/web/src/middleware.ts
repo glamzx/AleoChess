@@ -17,17 +17,10 @@ import { defaultLocale, locales } from "@/i18n-config";
 const intlMiddleware = createIntlMiddleware({
   locales,
   defaultLocale,
-  localePrefix: "always"
+  localePrefix: "never"
 });
 
 export async function middleware(request: NextRequest) {
-  // Bypass middleware when serving locally (helps local dev hosting).
-  // Some environments (local prod start) send host header like "localhost:3000".
-  const host = request.headers.get("host") ?? "";
-  if (host.startsWith("localhost") || host.startsWith("127.0.0.1")) {
-    return NextResponse.next();
-  }
-
   const response = intlMiddleware(request);
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
