@@ -201,7 +201,7 @@ npx next build     # Check the exact error message
 
 ## 📬 Contact
 
-**Email**: support@aleochess.com
+**Email**: alissdoes@gmail.com
 
 ---
 
