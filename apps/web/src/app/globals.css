@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* shadcn/ui slate base (HSL triplets — used by Tailwind theme bridge) */
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 222 47% 11%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 20% 38%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 222 84% 5%;
+    --radius: 0.75rem;
+
+    /* Aleo brand tokens (locked palette) */
+    --color-aleo-sky: #2ab2ff;
+    --color-aleo-cobalt: #0047bb;
+    --color-aleo-pale: #e1f5ff;
+    --color-aleo-navy: #002157;
+    --color-coin: #ffc800;
+    --color-win: #58cc02;
+    --color-loss: #ff4b4b;
+    --color-pro: #ffd700;
+
+    /* Cartoon UI helpers */
+    --c-bg: #ffffff;
+    --c-surface: #f2f8ff;
+    --c-text: #002157;
+    --c-muted: #4a5e80;
+  }
+
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222 47% 11%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 213 27% 84%;
+
+    --c-bg: #002157;
+    --c-surface: #03307a;
+    --c-text: #ffffff;
+    --c-muted: #9eb4d8;
+  }
+
+  * {
+    @apply border-border;
+  }
+}
+
+html,
+body {
+  background: var(--c-bg);
+  color: var(--c-text);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "ss01", "cv01";
+}
+
+body {
+  font-family: var(--font-nunito), system-ui, -apple-system, "Segoe UI", Roboto,
+    sans-serif;
+  font-weight: 700;
+}
+
+/* tabular nums for numbers */
+.tabnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* keyboard focus */
+*:focus-visible {
+  outline: 3px solid var(--c-sky);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* hide scrollbar (visual polish) */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+/* chunky button — uses translate on press */
+.chunky {
+  transform: translateY(0);
+  transition: transform 150ms ease-out, filter 150ms ease-out,
+    box-shadow 150ms ease-out;
+}
+.chunky:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+.chunky:active {
+  transform: translateY(2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* chess board cells */
+.sq-light {
+  background: #eaf4ff;
+}
+.sq-dark {
+  background: #6cb7ff;
+}
+.sq-selected {
+  box-shadow: inset 0 0 0 4px #ffd700;
+}
+.sq-target::after {
+  content: "";
+  position: absolute;
+  inset: 30%;
+  border-radius: 9999px;
+  background: rgba(0, 33, 87, 0.2);
+}
+.sq-last {
+  background: #ffe98a !important;
+}

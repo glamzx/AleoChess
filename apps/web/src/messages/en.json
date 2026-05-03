@@ -1,0 +1,296 @@
+{
+  "app": {
+    "name": "Aleo — Chess Royale",
+    "tagline": "Play. Improve. Conquer your city."
+  },
+  "auth": {
+    "google": "Continue with Google",
+    "email": "Continue with Email",
+    "guest": "Continue as Guest",
+    "termsLine": "By continuing you agree to our Terms & Privacy Policy.",
+    "emailPlaceholder": "you@example.com",
+    "sendMagic": "Send magic link",
+    "back": "Back"
+  },
+  "nav": {
+    "play": "Play",
+    "puzzles": "Puzzles",
+    "learn": "Learn",
+    "social": "Friends",
+    "profile": "Profile",
+    "store": "Store",
+    "battlePass": "Battle Pass"
+  },
+  "onboarding": {
+    "step": "Step {current} of {total}",
+    "city": {
+      "title": "Where are you playing from?",
+      "subtitle": "We use your city for friendly local rankings.",
+      "placeholder": "Search your city",
+      "quickPick": "Popular cities",
+      "next": "Next"
+    },
+    "avatar": {
+      "title": "How do we call you?",
+      "subtitle": "Choose the name other players will see.",
+      "label": "Display name",
+      "placeholder": "AleoMaster",
+      "hint": "You can change this later in your profile.",
+      "next": "Next"
+    },
+    "skill": {
+      "title": "How do you play chess?",
+      "subtitle": "We'll match you with players at your level.",
+      "next": "Let's go!"
+    }
+  },
+  "home": {
+    "greeting": "Hey, {name}!",
+    "quickPlay": "Quick Play",
+    "ready": "Ready when you are, {name}!",
+    "winsToRank": "You're 13 wins from Platinum. Let's go!",
+    "playNow": "Play Now",
+    "streak": "{count} day streak",
+    "dailyRewardReady": "Daily reward ready",
+    "dailyRewardBody": "Claim your starter bonus and come back daily for coins.",
+    "claimCoins": "Claim +50",
+    "secondary": {
+      "friend": "Play with Friend",
+      "bot": "Play vs Bot",
+      "tournaments": "Tournaments"
+    },
+    "upgradeTitle": "Upgrade to Pro",
+    "upgradeBody": "Unlimited coach notes, grace tokens, and Pro-only items.",
+    "soon": "Soon",
+    "cityWidget": "Your city: {city} (#{rank} globally) — push us up!",
+    "battlePassOpen": "Open Battle Pass",
+    "tutorialTitle": "Welcome to Aleo Chess",
+    "tutorialPlay": "Play Now starts ranked matchmaking and helps you climb Elo.",
+    "tutorialModes": "Friend creates a private invite link. Bot lets you practice.",
+    "tutorialQuests": "Daily Quests give coins for goals. Battle Pass unlocks rewards as you earn XP.",
+    "gotIt": "Got it"
+  },
+  "matchmaking": {
+    "searching": "Searching match",
+    "finding": "Finding a fair opponent within ±{range} Elo…",
+    "cancel": "Cancel",
+    "tipLabel": "Aleo's tip",
+    "youElo": "You · {elo} Elo",
+    "skipDemo": "Skip to game (demo)"
+  },
+  "quests": {
+    "title": "Daily Quests",
+    "reset": "resets at UTC midnight"
+  },
+  "battlePass": {
+    "title": "Battle Pass",
+    "subtitle": "Free and premium tracks advance together through 50 tiers.",
+    "heading": "Battle Pass · {season}",
+    "tierLabel": "Tier {tier}",
+    "tierProgress": "Tier {tier} · {xp}/1000 XP to next tier",
+    "premium": "Premium",
+    "free": "Free",
+    "claim": "Claim",
+    "claimed": "Claimed",
+    "reward": "Reward",
+    "coins": "{amount} coins"
+  },
+  "store": {
+    "title": "Store",
+    "subtitle": "Virtual coins only until payments are wired.",
+    "tabs": {
+      "board": "Boards",
+      "pieces": "Pieces",
+      "background": "Backgrounds",
+      "effect": "Effects",
+      "flair": "Flair",
+      "battlePass": "Battle Pass",
+      "pro": "Pro"
+    },
+    "filters": "Filters",
+    "all": "All",
+    "owned": "Owned",
+    "locked": "Locked",
+    "buy": "Buy",
+    "equip": "Equip",
+    "equipped": "Equipped",
+    "proOnly": "Pro Only",
+    "event": "Event",
+    "free": "Free",
+    "pro": "Pro",
+    "noticePayments": "Payments are coming soon in Prompt 12.",
+    "devGrant": "Developer Pro grant active for 30 days.",
+    "upgrade": "Upgrade to Pro",
+    "devGrantButton": "Dev Grant Pro",
+    "proTitle": "Unlock the full Aleo experience",
+    "proSubtitle": "Placeholder pricing until Stripe and YooKassa are wired.",
+    "feature": "Feature",
+    "freePlan": "Free",
+    "proPlan": "Pro",
+    "features": {
+      "coach": "AI Coach explanations",
+      "lessons": "BigTech Interview Track",
+      "grace": "Streak grace tokens",
+      "items": "Legendary Pro items",
+      "bp": "Battle Pass premium purchase",
+      "threeDay": "3/day",
+      "unlimited": "Unlimited",
+      "none": "None",
+      "twoMonth": "2/month",
+      "included": "Included",
+      "optional": "Optional",
+      "discount": "Discount-ready"
+    }
+  },
+  "profile": {
+    "settings": "Settings",
+    "language": "Language",
+    "languageHint": "Switching language updates the app instantly.",
+    "stats": "Stats",
+    "inventory": "Inventory",
+    "achievements": "Achievements",
+    "visitStore": "Visit store",
+    "level": "Season tier {tier}",
+    "xp": "{xp}/1000 XP",
+    "games": "Games",
+    "winRate": "Win rate",
+    "currentStreak": "Current streak",
+    "bestStreak": "Best streak",
+    "seasonXp": "Season XP",
+    "coins": "Coins",
+    "openToday": "Open today",
+    "equipped": "Equipped",
+    "equip": "Equip"
+  },
+  "puzzles": {
+    "title": "Puzzles",
+    "daily": "Daily Puzzle",
+    "rush": "Puzzle Rush",
+    "rushBody": "Solve as many as you can in 3 minutes!",
+    "startRush": "Start Rush",
+    "themes": "Themed packs",
+    "startNow": "Start now",
+    "allDone": "All done!",
+    "donePercent": "{percent}% done"
+  },
+  "dailyPuzzle": {
+    "label": "Daily Puzzle",
+    "title": "White to play. Find the tactic!",
+    "theme": "Theme: {theme} · Rating {rating}",
+    "reward": "+ {reward} coins",
+    "solve": "Solve"
+  },
+  "game": {
+    "resign": "Resign",
+    "draw": "Offer Draw",
+    "moves": "Moves",
+    "captured": "Captured",
+    "wager": "Pot",
+    "drawOfferSent": "Draw offer sent — waiting for opponent…",
+    "acceptDraw": "Accept draw",
+    "decline": "Decline",
+    "thinking": "Thinking"
+  },
+  "review": {
+    "youWon": "You won!",
+    "youLost": "Tough one!",
+    "draw": "Draw",
+    "coachCta": "Tap to review with Aleo",
+    "share": "Share with friends",
+    "aiCoach": "AI Coach Review",
+    "home": "Home",
+    "wonBubble": "Beautiful! You found the kingside attack right on time. Let's review one tricky moment together?",
+    "lostBubble": "Tough one. You played some great moves. Aleo spotted just one slip. Want to fix it?",
+    "summary": "AI Coach Summary",
+    "powered": "Powered by Stockfish",
+    "brilliants": "Brilliants",
+    "blunders": "Blunders",
+    "bestMoves": "Best moves",
+    "copyLink": "Copy link"
+  },
+  "learn": {
+    "title": "Learn",
+    "free": "Free courses",
+    "pro": "Pro courses",
+    "unlock": "Unlock with Pro",
+    "lessons": "{done}/{total} lessons",
+    "lessonCount": "{total} lessons",
+    "continue": "Continue"
+  },
+  "social": {
+    "friends": "Friends",
+    "cities": "Cities",
+    "clans": "Clans",
+    "search": "Search @username or nickname",
+    "add": "Add",
+    "challenge": "Challenge",
+    "onlineReady": "Online · ready to play",
+    "offline": "Offline",
+    "loadingCities": "Loading real-world cities…",
+    "activeWeekly": "{count} active players · weekly",
+    "yourClan": "Your clan",
+    "members": "{count} members",
+    "weeklyPoints": "{members} members · {points} weekly points",
+    "clanWar": "Clan war",
+    "invite": "Invite",
+    "browseClans": "Browse clans",
+    "join": "Join"
+  },
+  "bot": {
+    "title": "Play vs Bot",
+    "difficulty": "Difficulty",
+    "easy": "Easy",
+    "casual": "Casual",
+    "club": "Club",
+    "strong": "Strong",
+    "timeControl": "Time Control",
+    "side": "Pick Your Side",
+    "white": "White",
+    "black": "Black",
+    "random": "Random",
+    "start": "Start Game"
+  },
+  "ranked": {
+    "title": "Ranked Match",
+    "subtitle": "Play fair games and climb Elo.",
+    "searching": "Searching {seconds}s · range expands automatically",
+    "timeControl": "Time control",
+    "optionalWager": "Optional wager",
+    "left": "{amount} left",
+    "wagersLocked": "Wagers unlock 24 hours after signup to keep ranked fair.",
+    "lowBalance": "Low balance — earn coins from daily quests before wagering.",
+    "cancel": "Cancel search",
+    "find": "Find ranked game",
+    "dailyWagerCap": "Daily wager cap reached."
+  },
+  "postGame": {
+    "reviewSoon": "Review with AI Coach",
+    "playAgain": "Play Again",
+    "backHome": "Back to Home"
+  },
+  "mascot": {
+    "open": "Open Aleo's tips",
+    "close": "Close",
+    "label": "Aleo says",
+    "next": "Next tip",
+    "gotIt": "Got it!",
+    "tips": [
+      "Need a hand? I'm here. Press Play Now to jump into a 5+0 game.",
+      "Stuck on a puzzle? Look for forcing moves: checks, captures, threats.",
+      "Tap any move in your last game and I'll suggest a friendlier alternative.",
+      "Daily streaks earn extra coins. Keep the chain warm."
+    ]
+  },
+  "common": {
+    "back": "Back",
+    "continue": "Continue",
+    "close": "Close",
+    "loading": "Loading…",
+    "soon": "Coming soon"
+  },
+  "locales": {
+    "ru": "Русский",
+    "kk": "Қазақша",
+    "en": "English"
+  }
+}

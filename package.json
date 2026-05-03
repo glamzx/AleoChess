@@ -1,0 +1,38 @@
+{
+  "name": "aleo-chess-royale",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Aleo — Chess Royale monorepo. Next.js web app + Stockfish WASM engine.",
+  "packageManager": "pnpm@9.7.0",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter web dev",
+    "build": "pnpm -r --filter \"./apps/*\" --filter \"./packages/*\" build",
+    "lint": "pnpm -r --parallel --filter \"./apps/*\" --filter \"./packages/*\" lint",
+    "typecheck": "pnpm -r --parallel --filter \"./apps/*\" --filter \"./packages/*\" typecheck",
+    "engine:build": "bash scripts/build-stockfish-wasm.sh",
+    "seed:cities": "pnpm dlx tsx infra/supabase/seed.ts",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,md,json,yml,yaml}\" --ignore-path .gitignore",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,md,json,yml,yaml}\" --ignore-path .gitignore",
+    "prepare": "husky || true"
+  },
+  "devDependencies": {
+    "husky": "^9.1.4",
+    "lint-staged": "^15.2.7",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.5",
+    "typescript": "^5.5.3"
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx,js,jsx}": [
+      "prettier --write",
+      "eslint --fix --max-warnings=0"
+    ],
+    "**/*.{md,json,yml,yaml,css}": [
+      "prettier --write"
+    ]
+  }
+}

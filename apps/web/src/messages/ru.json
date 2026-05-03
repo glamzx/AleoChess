@@ -1,0 +1,296 @@
+{
+  "app": {
+    "name": "Aleo — Chess Royale",
+    "tagline": "Играй. Расти. Покоряй свой город."
+  },
+  "auth": {
+    "google": "Продолжить с Google",
+    "email": "Продолжить с Email",
+    "guest": "Войти гостем",
+    "termsLine": "Продолжая, ты соглашаешься с условиями и политикой приватности.",
+    "emailPlaceholder": "you@example.com",
+    "sendMagic": "Отправить ссылку",
+    "back": "Назад"
+  },
+  "nav": {
+    "play": "Играть",
+    "puzzles": "Задачи",
+    "learn": "Учёба",
+    "social": "Друзья",
+    "profile": "Профиль",
+    "store": "Магазин",
+    "battlePass": "Боевой пропуск"
+  },
+  "onboarding": {
+    "step": "Шаг {current} из {total}",
+    "city": {
+      "title": "Откуда ты играешь?",
+      "subtitle": "Город нужен для дружеского локального рейтинга.",
+      "placeholder": "Найди свой город",
+      "quickPick": "Популярные города",
+      "next": "Дальше"
+    },
+    "avatar": {
+      "title": "Как тебя называть?",
+      "subtitle": "Выбери имя, которое увидят другие игроки.",
+      "label": "Имя",
+      "placeholder": "AleoMaster",
+      "hint": "Позже можно поменять в профиле.",
+      "next": "Дальше"
+    },
+    "skill": {
+      "title": "Как ты играешь в шахматы?",
+      "subtitle": "Мы подберём соперников твоего уровня.",
+      "next": "Поехали!"
+    }
+  },
+  "home": {
+    "greeting": "Привет, {name}!",
+    "quickPlay": "Быстрая игра",
+    "ready": "Готов сыграть, {name}?",
+    "winsToRank": "До Платины осталось 13 побед. Погнали!",
+    "playNow": "Играть",
+    "streak": "Серия: {count} дн.",
+    "dailyRewardReady": "Ежедневная награда готова",
+    "dailyRewardBody": "Забери стартовый бонус и возвращайся за монетами каждый день.",
+    "claimCoins": "Забрать +50",
+    "secondary": {
+      "friend": "С другом",
+      "bot": "Против бота",
+      "tournaments": "Турниры"
+    },
+    "upgradeTitle": "Перейти на Pro",
+    "upgradeBody": "Безлимитные подсказки тренера, защита серии и Pro-предметы.",
+    "soon": "Скоро",
+    "cityWidget": "Твой город: {city} (#{rank} в мире) — поднимем выше!",
+    "battlePassOpen": "Открыть боевой пропуск",
+    "tutorialTitle": "Добро пожаловать в Aleo Chess",
+    "tutorialPlay": "Играть запускает рейтинговый подбор и помогает поднимать Elo.",
+    "tutorialModes": "Друг создаёт приватную ссылку. Бот помогает потренироваться.",
+    "tutorialQuests": "Ежедневные задания дают монеты. Боевой пропуск открывает награды за XP.",
+    "gotIt": "Понял"
+  },
+  "matchmaking": {
+    "searching": "Ищем игру",
+    "finding": "Ищем честного соперника в пределах ±{range} Elo…",
+    "cancel": "Отмена",
+    "tipLabel": "Совет Aleo",
+    "youElo": "Ты · {elo} Elo",
+    "skipDemo": "Перейти в демо-игру"
+  },
+  "quests": {
+    "title": "Ежедневные задания",
+    "reset": "сброс в полночь UTC"
+  },
+  "battlePass": {
+    "title": "Боевой пропуск",
+    "subtitle": "Бесплатная и премиум-дорожка растут вместе на 50 уровней.",
+    "heading": "Боевой пропуск · {season}",
+    "tierLabel": "Уровень {tier}",
+    "tierProgress": "Уровень {tier} · {xp}/1000 XP до следующего",
+    "premium": "Премиум",
+    "free": "Бесплатно",
+    "claim": "Забрать",
+    "claimed": "Забрано",
+    "reward": "Награда",
+    "coins": "{amount} монет"
+  },
+  "store": {
+    "title": "Магазин",
+    "subtitle": "Пока только виртуальные монеты, платежи будут позже.",
+    "tabs": {
+      "board": "Доски",
+      "pieces": "Фигуры",
+      "background": "Фоны",
+      "effect": "Эффекты",
+      "flair": "Значки",
+      "battlePass": "Боевой пропуск",
+      "pro": "Pro"
+    },
+    "filters": "Фильтры",
+    "all": "Все",
+    "owned": "Есть",
+    "locked": "Закрыто",
+    "buy": "Купить",
+    "equip": "Выбрать",
+    "equipped": "Выбрано",
+    "proOnly": "Только Pro",
+    "event": "Ивент",
+    "free": "Бесплатно",
+    "pro": "Pro",
+    "noticePayments": "Платежи появятся в Prompt 12.",
+    "devGrant": "Dev Pro активирован на 30 дней.",
+    "upgrade": "Перейти на Pro",
+    "devGrantButton": "Dev Pro",
+    "proTitle": "Открой весь Aleo",
+    "proSubtitle": "Цены-заглушки до подключения Stripe и YooKassa.",
+    "feature": "Функция",
+    "freePlan": "Free",
+    "proPlan": "Pro",
+    "features": {
+      "coach": "Подсказки AI-тренера",
+      "lessons": "BigTech Interview Track",
+      "grace": "Защита серии",
+      "items": "Легендарные Pro-предметы",
+      "bp": "Премиум боевого пропуска",
+      "threeDay": "3/день",
+      "unlimited": "Безлимит",
+      "none": "Нет",
+      "twoMonth": "2/месяц",
+      "included": "Включено",
+      "optional": "Опционально",
+      "discount": "Скидка готова"
+    }
+  },
+  "profile": {
+    "settings": "Настройки",
+    "language": "Язык",
+    "languageHint": "Смена языка сразу обновляет приложение.",
+    "stats": "Статистика",
+    "inventory": "Инвентарь",
+    "achievements": "Достижения",
+    "visitStore": "В магазин",
+    "level": "Сезонный уровень {tier}",
+    "xp": "{xp}/1000 XP",
+    "games": "Игры",
+    "winRate": "Победы",
+    "currentStreak": "Текущая серия",
+    "bestStreak": "Лучшая серия",
+    "seasonXp": "XP сезона",
+    "coins": "Монеты",
+    "openToday": "Открыть сегодня",
+    "equipped": "Выбрано",
+    "equip": "Выбрать"
+  },
+  "puzzles": {
+    "title": "Задачи",
+    "daily": "Задача дня",
+    "rush": "Puzzle Rush",
+    "rushBody": "Реши как можно больше за 3 минуты!",
+    "startRush": "Начать",
+    "themes": "Темы",
+    "startNow": "Начать",
+    "allDone": "Готово!",
+    "donePercent": "{percent}% готово"
+  },
+  "dailyPuzzle": {
+    "label": "Задача дня",
+    "title": "Ход белых. Найди тактику!",
+    "theme": "Тема: {theme} · Рейтинг {rating}",
+    "reward": "+ {reward} монет",
+    "solve": "Решить"
+  },
+  "game": {
+    "resign": "Сдаться",
+    "draw": "Предложить ничью",
+    "moves": "Ходы",
+    "captured": "Взято",
+    "wager": "Банк",
+    "drawOfferSent": "Предложение ничьей отправлено — ждём соперника…",
+    "acceptDraw": "Принять ничью",
+    "decline": "Отклонить",
+    "thinking": "Думает"
+  },
+  "review": {
+    "youWon": "Ты победил!",
+    "youLost": "Бывает, сыграем ещё!",
+    "draw": "Ничья",
+    "coachCta": "Разобрать с Aleo",
+    "share": "Поделиться",
+    "aiCoach": "Разбор AI-тренера",
+    "home": "Домой",
+    "wonBubble": "Красиво! Ты вовремя нашёл атаку на короля. Давай вместе разберём один хитрый момент?",
+    "lostBubble": "Непростая партия. Хороших ходов было много — Aleo заметил только один срыв. Исправим?",
+    "summary": "Сводка AI-тренера",
+    "powered": "На Stockfish",
+    "brilliants": "Блестящие",
+    "blunders": "Зевки",
+    "bestMoves": "Лучшие ходы",
+    "copyLink": "Копировать"
+  },
+  "learn": {
+    "title": "Учёба",
+    "free": "Бесплатные курсы",
+    "pro": "Pro-курсы",
+    "unlock": "Открыть с Pro",
+    "lessons": "{done}/{total} уроков",
+    "lessonCount": "{total} уроков",
+    "continue": "Продолжить"
+  },
+  "social": {
+    "friends": "Друзья",
+    "cities": "Города",
+    "clans": "Кланы",
+    "search": "Искать @username или ник",
+    "add": "Добавить",
+    "challenge": "Вызвать",
+    "onlineReady": "Онлайн · готов играть",
+    "offline": "Офлайн",
+    "loadingCities": "Загружаем реальные города…",
+    "activeWeekly": "{count} активных игроков · за неделю",
+    "yourClan": "Твой клан",
+    "members": "{count} участников",
+    "weeklyPoints": "{members} участников · {points} очков за неделю",
+    "clanWar": "Война кланов",
+    "invite": "Пригласить",
+    "browseClans": "Все кланы",
+    "join": "Вступить"
+  },
+  "bot": {
+    "title": "Игра с ботом",
+    "difficulty": "Сложность",
+    "easy": "Легко",
+    "casual": "Спокойно",
+    "club": "Клуб",
+    "strong": "Сильно",
+    "timeControl": "Контроль",
+    "side": "Выбери цвет",
+    "white": "Белые",
+    "black": "Чёрные",
+    "random": "Случайно",
+    "start": "Начать игру"
+  },
+  "ranked": {
+    "title": "Рейтинговая партия",
+    "subtitle": "Играй честно и поднимай Elo.",
+    "searching": "Ищем {seconds}с · диапазон расширяется",
+    "timeControl": "Контроль времени",
+    "optionalWager": "Ставка по желанию",
+    "left": "осталось {amount}",
+    "wagersLocked": "Ставки откроются через 24 часа после регистрации для честного рейтинга.",
+    "lowBalance": "Мало монет — заработай их в ежедневных заданиях перед ставкой.",
+    "cancel": "Отменить поиск",
+    "find": "Найти игру",
+    "dailyWagerCap": "Дневной лимит ставок достигнут."
+  },
+  "postGame": {
+    "reviewSoon": "Разбор с AI-тренером",
+    "playAgain": "Ещё партию",
+    "backHome": "Домой"
+  },
+  "mascot": {
+    "open": "Открыть советы Aleo",
+    "close": "Закрыть",
+    "label": "Aleo говорит",
+    "next": "Ещё совет",
+    "gotIt": "Понял!",
+    "tips": [
+      "Нужна рука помощи? Я рядом. Нажми Играть и прыгай в 5+0.",
+      "Застрял на задаче? Ищи форсированные ходы: шахи, взятия, угрозы.",
+      "Нажми любой ход из прошлой партии — я предложу более приятную альтернативу.",
+      "Ежедневная серия даёт монеты. Держи огонь тёплым."
+    ]
+  },
+  "common": {
+    "back": "Назад",
+    "continue": "Продолжить",
+    "close": "Закрыть",
+    "loading": "Загрузка…",
+    "soon": "Скоро"
+  },
+  "locales": {
+    "ru": "Русский",
+    "kk": "Қазақша",
+    "en": "English"
+  }
+}

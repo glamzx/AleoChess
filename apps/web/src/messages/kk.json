@@ -1,0 +1,296 @@
+{
+  "app": {
+    "name": "Aleo — Chess Royale",
+    "tagline": "Ойна. Өс. Қалаңды бағындыр."
+  },
+  "auth": {
+    "google": "Google арқылы жалғасу",
+    "email": "Email арқылы жалғасу",
+    "guest": "Қонақ болып кіру",
+    "termsLine": "Жалғассаң, шарттар мен құпиялылық саясатымен келісесің.",
+    "emailPlaceholder": "you@example.com",
+    "sendMagic": "Сілтемені жіберу",
+    "back": "Артқа"
+  },
+  "nav": {
+    "play": "Ойнау",
+    "puzzles": "Есептер",
+    "learn": "Оқу",
+    "social": "Достар",
+    "profile": "Профиль",
+    "store": "Дүкен",
+    "battlePass": "Жауынгерлік пропуск"
+  },
+  "onboarding": {
+    "step": "{current}/{total} қадам",
+    "city": {
+      "title": "Қай қаладан ойнайсың?",
+      "subtitle": "Қалаң достық жергілікті рейтинг үшін керек.",
+      "placeholder": "Қалаңды ізде",
+      "quickPick": "Танымал қалалар",
+      "next": "Келесі"
+    },
+    "avatar": {
+      "title": "Сені қалай атаймыз?",
+      "subtitle": "Басқа ойыншылар көретін атыңды таңда.",
+      "label": "Атың",
+      "placeholder": "AleoMaster",
+      "hint": "Кейін профильде өзгерте аласың.",
+      "next": "Келесі"
+    },
+    "skill": {
+      "title": "Шахматты қалай ойнайсың?",
+      "subtitle": "Саған деңгейіңе сай қарсылас табамыз.",
+      "next": "Кеттік!"
+    }
+  },
+  "home": {
+    "greeting": "Сәлем, {name}!",
+    "quickPlay": "Жылдам ойын",
+    "ready": "Дайынсың ба, {name}?",
+    "winsToRank": "Platinum-ға дейін 13 жеңіс. Кеттік!",
+    "playNow": "Ойнау",
+    "streak": "Серия: {count} күн",
+    "dailyRewardReady": "Күнделікті сый дайын",
+    "dailyRewardBody": "Бастапқы бонусты ал да, монета үшін күн сайын кел.",
+    "claimCoins": "+50 алу",
+    "secondary": {
+      "friend": "Доспен ойнау",
+      "bot": "Ботқа қарсы",
+      "tournaments": "Турнирлер"
+    },
+    "upgradeTitle": "Pro-ға өту",
+    "upgradeBody": "Шексіз жаттықтырушы кеңесі, серия қорғанысы және Pro заттар.",
+    "soon": "Жақында",
+    "cityWidget": "Қалаң: {city} (әлемде #{rank}) — жоғары көтерейік!",
+    "battlePassOpen": "Жауынгерлік пропускты ашу",
+    "tutorialTitle": "Aleo Chess-ке қош келдің",
+    "tutorialPlay": "Ойнау рейтингтік іздеуді бастайды және Elo өсіруге көмектеседі.",
+    "tutorialModes": "Дос жеке сілтеме жасайды. Бот жаттығуға көмектеседі.",
+    "tutorialQuests": "Күнделікті тапсырмалар монета береді. Жауынгерлік пропуск XP арқылы сый ашады.",
+    "gotIt": "Түсіндім"
+  },
+  "matchmaking": {
+    "searching": "Ойын ізделуде",
+    "finding": "±{range} Elo ішінде әділ қарсылас іздейміз…",
+    "cancel": "Бас тарту",
+    "tipLabel": "Aleo кеңесі",
+    "youElo": "Сен · {elo} Elo",
+    "skipDemo": "Демо ойынға өту"
+  },
+  "quests": {
+    "title": "Күнделікті тапсырмалар",
+    "reset": "UTC түн ортасында жаңарады"
+  },
+  "battlePass": {
+    "title": "Жауынгерлік пропуск",
+    "subtitle": "Тегін және премиум жолдары 50 деңгей бойы бірге өседі.",
+    "heading": "Жауынгерлік пропуск · {season}",
+    "tierLabel": "{tier}-деңгей",
+    "tierProgress": "{tier}-деңгей · келесіге дейін {xp}/1000 XP",
+    "premium": "Премиум",
+    "free": "Тегін",
+    "claim": "Алу",
+    "claimed": "Алынды",
+    "reward": "Сый",
+    "coins": "{amount} монета"
+  },
+  "store": {
+    "title": "Дүкен",
+    "subtitle": "Әзірге тек виртуалды монета, төлем кейін қосылады.",
+    "tabs": {
+      "board": "Тақталар",
+      "pieces": "Тастар",
+      "background": "Фондар",
+      "effect": "Әсерлер",
+      "flair": "Белгілер",
+      "battlePass": "Жауынгерлік пропуск",
+      "pro": "Pro"
+    },
+    "filters": "Сүзгілер",
+    "all": "Барлығы",
+    "owned": "Менде бар",
+    "locked": "Жабық",
+    "buy": "Сатып алу",
+    "equip": "Таңдау",
+    "equipped": "Таңдалды",
+    "proOnly": "Тек Pro",
+    "event": "Оқиға",
+    "free": "Тегін",
+    "pro": "Pro",
+    "noticePayments": "Төлемдер Prompt 12-де келеді.",
+    "devGrant": "Dev Pro 30 күнге қосылды.",
+    "upgrade": "Pro-ға өту",
+    "devGrantButton": "Dev Pro",
+    "proTitle": "Aleo мүмкіндігін толық аш",
+    "proSubtitle": "Stripe және YooKassa қосылғанға дейінгі уақытша баға.",
+    "feature": "Мүмкіндік",
+    "freePlan": "Free",
+    "proPlan": "Pro",
+    "features": {
+      "coach": "AI жаттықтырушы түсіндірмелері",
+      "lessons": "BigTech Interview Track",
+      "grace": "Серия қорғанысы",
+      "items": "Легендар Pro заттар",
+      "bp": "Премиум пропуск",
+      "threeDay": "3/күн",
+      "unlimited": "Шексіз",
+      "none": "Жоқ",
+      "twoMonth": "2/ай",
+      "included": "Бар",
+      "optional": "Қосымша",
+      "discount": "Жеңілдік дайын"
+    }
+  },
+  "profile": {
+    "settings": "Баптаулар",
+    "language": "Тіл",
+    "languageHint": "Тілді ауыстырсаң, қолданба бірден жаңарады.",
+    "stats": "Статистика",
+    "inventory": "Инвентарь",
+    "achievements": "Жетістіктер",
+    "visitStore": "Дүкенге өту",
+    "level": "Маусым деңгейі {tier}",
+    "xp": "{xp}/1000 XP",
+    "games": "Ойындар",
+    "winRate": "Жеңіс",
+    "currentStreak": "Қазіргі серия",
+    "bestStreak": "Ең үздік серия",
+    "seasonXp": "Маусым XP",
+    "coins": "Монета",
+    "openToday": "Бүгін ашу",
+    "equipped": "Таңдалды",
+    "equip": "Таңдау"
+  },
+  "puzzles": {
+    "title": "Есептер",
+    "daily": "Күн есебі",
+    "rush": "Puzzle Rush",
+    "rushBody": "3 минутта мүмкіндігінше көп есеп шеш!",
+    "startRush": "Бастау",
+    "themes": "Тақырыптар",
+    "startNow": "Бастау",
+    "allDone": "Бәрі дайын!",
+    "donePercent": "{percent}% дайын"
+  },
+  "dailyPuzzle": {
+    "label": "Күн есебі",
+    "title": "Ақтардың жүрісі. Тактиканы тап!",
+    "theme": "Тақырып: {theme} · Рейтинг {rating}",
+    "reward": "+ {reward} монета",
+    "solve": "Шешу"
+  },
+  "game": {
+    "resign": "Берілу",
+    "draw": "Тең ойын ұсыну",
+    "moves": "Жүрістер",
+    "captured": "Алынды",
+    "wager": "Банк",
+    "drawOfferSent": "Тең ойын ұсынылды — қарсыласты күтеміз…",
+    "acceptDraw": "Қабылдау",
+    "decline": "Бас тарту",
+    "thinking": "Ойланып жатыр"
+  },
+  "review": {
+    "youWon": "Жеңдің!",
+    "youLost": "Ештеңе етпейді, тағы ойнаймыз!",
+    "draw": "Тең ойын",
+    "coachCta": "Aleo-мен талдау",
+    "share": "Бөлісу",
+    "aiCoach": "AI жаттықтырушы талдауы",
+    "home": "Үйге",
+    "wonBubble": "Керемет! Король қанатындағы шабуылды дәл уақытында таптың. Бір қызық сәтті бірге талдайық па?",
+    "lostBubble": "Қиын ойын болды. Жақсы жүрістер көп еді — Aleo бір ғана қателікті көрді. Түзетеміз бе?",
+    "summary": "AI жаттықтырушы қысқаша талдауы",
+    "powered": "Stockfish негізінде",
+    "brilliants": "Жарқын жүрістер",
+    "blunders": "Қателер",
+    "bestMoves": "Үздік жүрістер",
+    "copyLink": "Сілтемені көшіру"
+  },
+  "learn": {
+    "title": "Оқу",
+    "free": "Тегін курстар",
+    "pro": "Pro курстар",
+    "unlock": "Pro арқылы ашу",
+    "lessons": "{done}/{total} сабақ",
+    "lessonCount": "{total} сабақ",
+    "continue": "Жалғасу"
+  },
+  "social": {
+    "friends": "Достар",
+    "cities": "Қалалар",
+    "clans": "Кландар",
+    "search": "@username немесе ник іздеу",
+    "add": "Қосу",
+    "challenge": "Шақыру",
+    "onlineReady": "Онлайн · ойнауға дайын",
+    "offline": "Офлайн",
+    "loadingCities": "Нақты қалалар жүктелуде…",
+    "activeWeekly": "{count} белсенді ойыншы · апта",
+    "yourClan": "Сенің кланың",
+    "members": "{count} мүше",
+    "weeklyPoints": "{members} мүше · аптасына {points} ұпай",
+    "clanWar": "Клан соғысы",
+    "invite": "Шақыру",
+    "browseClans": "Кландарды көру",
+    "join": "Кіру"
+  },
+  "bot": {
+    "title": "Ботпен ойнау",
+    "difficulty": "Қиындық",
+    "easy": "Оңай",
+    "casual": "Жайлы",
+    "club": "Клуб",
+    "strong": "Күшті",
+    "timeControl": "Уақыт",
+    "side": "Түс таңда",
+    "white": "Ақтар",
+    "black": "Қаралар",
+    "random": "Кездейсоқ",
+    "start": "Ойынды бастау"
+  },
+  "ranked": {
+    "title": "Рейтингтік ойын",
+    "subtitle": "Әділ ойна да Elo көтер.",
+    "searching": "Іздеу {seconds}с · диапазон кеңейеді",
+    "timeControl": "Уақыт бақылауы",
+    "optionalWager": "Қосымша бәс",
+    "left": "{amount} қалды",
+    "wagersLocked": "Рейтинг әділ болуы үшін бәс тіркелгеннен 24 сағаттан кейін ашылады.",
+    "lowBalance": "Монета аз — бәс тігуден бұрын күнделікті тапсырмадан жина.",
+    "cancel": "Іздеуді тоқтату",
+    "find": "Рейтингтік ойын табу",
+    "dailyWagerCap": "Күндік бәс лимиті бітті."
+  },
+  "postGame": {
+    "reviewSoon": "AI жаттықтырушымен талдау",
+    "playAgain": "Тағы ойнау",
+    "backHome": "Үйге"
+  },
+  "mascot": {
+    "open": "Aleo кеңестерін ашу",
+    "close": "Жабу",
+    "label": "Aleo айтады",
+    "next": "Тағы кеңес",
+    "gotIt": "Түсіндім!",
+    "tips": [
+      "Көмек керек пе? Мен осындамын. Ойнау батырмасын басып, 5+0 ойынына кір.",
+      "Есепте тұрып қалдың ба? Мәжбүр жүрістерді ізде: шах, алу, қауіп.",
+      "Өткен ойындағы кез келген жүрісті бас — мен жұмсағырақ балама ұсынамын.",
+      "Күнделікті серия монета береді. Отты өшірме."
+    ]
+  },
+  "common": {
+    "back": "Артқа",
+    "continue": "Жалғасу",
+    "close": "Жабу",
+    "loading": "Жүктелуде…",
+    "soon": "Жақында"
+  },
+  "locales": {
+    "ru": "Русский",
+    "kk": "Қазақша",
+    "en": "English"
+  }
+}

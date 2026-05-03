@@ -1,0 +1,11 @@
+node_modules
+.next
+dist
+build
+coverage
+out
+pnpm-lock.yaml
+engine/Stockfish
+engine/emsdk
+apps/web/public/engine/stockfish.js
+apps/web/public/engine/stockfish.wasm
