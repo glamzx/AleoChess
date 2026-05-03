@@ -12,15 +12,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
-const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY!;
-const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET!;
+const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
+const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET;
 
-// Use service role for webhook processing (no user context)
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  { auth: { persistSession: false } }
-);
+// Lazy init — avoid crash at build time when env vars aren't set
+function getServiceClient() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    { auth: { persistSession: false } }
+  );
+}
 
 export async function POST(req: NextRequest) {
   if (!STRIPE_SECRET_KEY || !STRIPE_WEBHOOK_SECRET) {
@@ -75,7 +77,7 @@ async function handleCheckoutCompleted(session: any) {
   const coins = parseInt(session.metadata?.coins || "0", 10);
 
   // Idempotency: check if already processed
-  const { data: existing } = await supabase
+  const { data: existing } = await getServiceClient()
     .from("payment_intents")
     .select("status")
     .eq("provider_id", session.id)
@@ -87,20 +89,20 @@ async function handleCheckoutCompleted(session: any) {
   }
 
   // Mark payment as succeeded
-  await supabase
+  await getServiceClient()
     .from("payment_intents")
     .update({ status: "succeeded", updated_at: new Date().toISOString() })
     .eq("provider_id", session.id);
 
   if (productType === "coin_pack" && coins > 0) {
     // Credit coins
-    await supabase.rpc("credit_coins", {
+    await getServiceClient().rpc("credit_coins", {
       p_user_id: userId,
       p_amount: coins,
       p_reason: "shop_purchase",
     });
 
-    await supabase.from("purchases").insert({
+    await getServiceClient().from("purchases").insert({
       user_id: userId,
       product_type: "coin_pack",
       product_meta: { coins, pack: productKey },
@@ -112,7 +114,7 @@ async function handleCheckoutCompleted(session: any) {
     const days = productType === "pro_annual" ? 365 : 30;
     const proUntil = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toISOString();
 
-    await supabase
+    await getServiceClient()
       .from("profiles")
       .update({
         pro_until: proUntil,
@@ -120,7 +122,7 @@ async function handleCheckoutCompleted(session: any) {
       })
       .eq("id", userId);
 
-    await supabase.from("subscriptions").upsert({
+    await getServiceClient().from("subscriptions").upsert({
       user_id: userId,
       provider: "stripe",
       provider_subscription_id: session.subscription,
@@ -132,7 +134,7 @@ async function handleCheckoutCompleted(session: any) {
     });
   } else if (productType === "battle_pass") {
     // Activate battle pass premium
-    await supabase.from("purchases").insert({
+    await getServiceClient().from("purchases").insert({
       user_id: userId,
       product_type: "battle_pass",
       product_meta: { season: "current" },
@@ -140,10 +142,13 @@ async function handleCheckoutCompleted(session: any) {
       currency: session.currency || "usd",
     });
     // If user_battlepass table exists
-    await supabase
-      .from("user_battlepass")
-      .upsert({ user_id: userId, premium: true })
-      .catch(() => {});
+    try {
+      await getServiceClient()
+        .from("user_battlepass")
+        .upsert({ user_id: userId, premium: true });
+    } catch {
+      // Table may not exist yet
+    }
   }
 }
 
@@ -155,12 +160,12 @@ async function handleSubscriptionUpdated(subscription: any) {
   const proUntil = new Date(subscription.current_period_end * 1000).toISOString();
   const cancelAtEnd = subscription.cancel_at_period_end;
 
-  await supabase
+  await getServiceClient()
     .from("profiles")
     .update({ pro_until: proUntil })
     .eq("id", userId);
 
-  await supabase
+  await getServiceClient()
     .from("subscriptions")
     .update({
       status: subscription.status === "active" ? "active" : "past_due",
@@ -176,7 +181,7 @@ async function handleSubscriptionDeleted(subscription: any) {
   const userId = subscription.metadata?.user_id;
   if (!userId) return;
 
-  await supabase
+  await getServiceClient()
     .from("subscriptions")
     .update({
       status: "expired",

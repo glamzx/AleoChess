@@ -10,11 +10,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  { auth: { persistSession: false } }
-);
+function getDb() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    { auth: { persistSession: false } }
+  );
+}
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
@@ -57,7 +59,7 @@ async function handlePaymentSucceeded(payment: any) {
   const coins = parseInt(payment.metadata?.coins || "0", 10);
 
   // Idempotency check
-  const { data: existing } = await supabase
+  const { data: existing } = await getDb()
     .from("payment_intents")
     .select("status")
     .eq("provider_id", payment.id)
@@ -65,18 +67,18 @@ async function handlePaymentSucceeded(payment: any) {
 
   if (existing?.status === "succeeded") return;
 
-  await supabase
+  await getDb()
     .from("payment_intents")
     .update({ status: "succeeded", updated_at: new Date().toISOString() })
     .eq("provider_id", payment.id);
 
   if (productType === "coin_pack" && coins > 0) {
-    await supabase.rpc("credit_coins", {
+    await getDb().rpc("credit_coins", {
       p_user_id: userId,
       p_amount: coins,
       p_reason: "shop_purchase",
     });
-    await supabase.from("purchases").insert({
+    await getDb().from("purchases").insert({
       user_id: userId,
       product_type: "coin_pack",
       product_meta: { coins, pack: productKey },
@@ -87,12 +89,12 @@ async function handlePaymentSucceeded(payment: any) {
     const days = productType === "pro_annual" ? 365 : 30;
     const proUntil = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toISOString();
 
-    await supabase.from("profiles").update({
+    await getDb().from("profiles").update({
       pro_until: proUntil,
       yookassa_payer_id: payment.payment_method?.id || null,
     }).eq("id", userId);
 
-    await supabase.from("subscriptions").upsert({
+    await getDb().from("subscriptions").upsert({
       user_id: userId,
       provider: "yookassa",
       provider_subscription_id: payment.id,
@@ -102,7 +104,7 @@ async function handlePaymentSucceeded(payment: any) {
       current_period_end: proUntil,
     });
   } else if (productType === "battle_pass") {
-    await supabase.from("purchases").insert({
+    await getDb().from("purchases").insert({
       user_id: userId,
       product_type: "battle_pass",
       product_meta: { season: "current" },
@@ -114,7 +116,7 @@ async function handlePaymentSucceeded(payment: any) {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function handlePaymentCanceled(payment: any) {
-  await supabase
+  await getDb()
     .from("payment_intents")
     .update({ status: "canceled", updated_at: new Date().toISOString() })
     .eq("provider_id", payment.id);
@@ -125,7 +127,7 @@ async function handleRefund(refund: any) {
   const paymentId = refund.payment_id;
   if (!paymentId) return;
 
-  await supabase
+  await getDb()
     .from("payment_intents")
     .update({ status: "refunded", updated_at: new Date().toISOString() })
     .eq("provider_id", paymentId);
