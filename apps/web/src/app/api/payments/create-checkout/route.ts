@@ -86,7 +86,7 @@ async function createStripeSession(userId: string, productKey: string, productTy
   if (!product) return NextResponse.json({ error: "Invalid product" }, { status: 400 });
 
   const Stripe = (await import("stripe")).default;
-  const stripe = new Stripe(STRIPE_SECRET_KEY, { apiVersion: "2024-06-20" });
+  const stripe = new Stripe(STRIPE_SECRET_KEY, { apiVersion: "2026-04-22.dahlia" });
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const sessionParams: any = {
