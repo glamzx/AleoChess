@@ -4,7 +4,7 @@ import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Mail, ArrowLeft, CheckCircle2, Eye, EyeOff, AtSign, Lock } from "lucide-react";
+import { Mail, ArrowLeft, CheckCircle2, Eye, EyeOff, AtSign, Lock, User, MapPin, Calendar } from "lucide-react";
 import { ChunkyButton } from "@/components/ChunkyButton";
 import {
   signUpWithEmail,
@@ -38,6 +38,9 @@ function SplashPageContent() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [username, setUsername] = React.useState("");
+  const [nickname, setNickname] = React.useState("");
+  const [city, setCity] = React.useState("");
+  const [age, setAge] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
   const [pending, setPending] = React.useState<null | "google" | "email">(null);
   const [error, setError] = React.useState<string | null>(
@@ -72,7 +75,7 @@ function SplashPageContent() {
     e.preventDefault();
     setError(null);
     setPending("email");
-    const res = await signUpWithEmail(email, password, username);
+    const res = await signUpWithEmail(email, password, username, nickname, city, age);
     setPending(null);
     if (!res.ok) {
       setError(res.error);
@@ -196,7 +199,7 @@ function SplashPageContent() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.15 }}
-              className="flex flex-col gap-3"
+              className="flex flex-col gap-2.5"
               onSubmit={handleSignUp}
             >
               <h2 className="text-xl font-extrabold text-navy">Create Account ✨</h2>
@@ -207,12 +210,50 @@ function SplashPageContent() {
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value.replace(/\s/g, ""))}
-                  placeholder="username (e.g. aleo)"
+                  placeholder="@username"
                   autoComplete="username"
                   required
                   minLength={3}
                   className={inputClass}
                 />
+              </div>
+
+              <div className="relative">
+                <User className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-cobalt" />
+                <input
+                  type="text"
+                  value={nickname}
+                  onChange={(e) => setNickname(e.target.value)}
+                  placeholder="Your nickname"
+                  required
+                  className={inputClass}
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-2.5">
+                <div className="relative">
+                  <MapPin className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-cobalt" />
+                  <input
+                    type="text"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    placeholder="City"
+                    required
+                    className={inputClass}
+                  />
+                </div>
+                <div className="relative">
+                  <Calendar className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-cobalt" />
+                  <input
+                    type="number"
+                    value={age}
+                    onChange={(e) => setAge(e.target.value)}
+                    placeholder="Age"
+                    required
+                    min={1}
+                    className={inputClass}
+                  />
+                </div>
               </div>
 
               <div className="relative">
@@ -258,7 +299,7 @@ function SplashPageContent() {
                 size="lg"
                 pill
                 loading={pending === "email"}
-                disabled={pending !== null || !email || !password || !username}
+                disabled={pending !== null || !email || !password || !username || !nickname || !city || !age}
               >
                 Sign Up
               </ChunkyButton>

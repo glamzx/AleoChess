@@ -23,7 +23,10 @@ export type ActionResult<T = unknown> =
 export async function signUpWithEmail(
   email: string,
   password: string,
-  username: string
+  username: string,
+  nickname?: string,
+  city?: string,
+  age?: string
 ): Promise<ActionResult<{ userId: string; needsConfirmation: boolean }>> {
   if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
     return { ok: false, error: "Please enter a valid email." };
@@ -46,7 +49,9 @@ export async function signUpWithEmail(
       emailRedirectTo: `${SITE_URL}/auth/callback`,
       data: {
         preferred_username: cleanUsername,
-        display_name: cleanUsername,
+        display_name: nickname || cleanUsername,
+        city: city || "",
+        age: age || "",
       }
     }
   });
@@ -59,7 +64,7 @@ export async function signUpWithEmail(
 
   if (data.session) {
     // Auto-confirmed — create profile
-    await bootstrapProfileWithUsername(data.user.id, cleanUsername, email);
+    await bootstrapProfileWithUsername(data.user.id, cleanUsername, email, nickname, city, age);
     revalidatePath("/", "layout");
   }
 
@@ -146,7 +151,14 @@ export async function bootstrapProfile(): Promise<ActionResult<{ userId: string 
   return { ok: true, data: { userId: user.id } };
 }
 
-async function bootstrapProfileWithUsername(userId: string, username: string, email: string): Promise<void> {
+async function bootstrapProfileWithUsername(
+  userId: string,
+  username: string,
+  email: string,
+  nickname?: string,
+  city?: string,
+  age?: string
+): Promise<void> {
   const supabase = getSupabaseServerClient();
 
   const { data: existing } = await supabase
@@ -160,7 +172,7 @@ async function bootstrapProfileWithUsername(userId: string, username: string, em
   const insert: ProfileInsert = {
     id: userId,
     username,
-    display_name: username,
+    display_name: nickname || username,
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
