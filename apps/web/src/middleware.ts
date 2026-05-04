@@ -2,26 +2,16 @@
  * Supabase auth middleware.
  *
  * Refreshes the Supabase session cookie on every request, so the user stays
- * logged in across server-rendered navigations. Without this, expired access
- * tokens make Server Components see `getUser()` as null even when the user
- * just refreshed in the browser.
+ * logged in across server-rendered navigations.
  */
 
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import createIntlMiddleware from "next-intl/middleware";
 import type { Database } from "@aleo/shared/db-types";
-import { defaultLocale, locales } from "@/i18n-config";
-
-const intlMiddleware = createIntlMiddleware({
-  locales,
-  defaultLocale,
-  localePrefix: "never"
-});
 
 export async function middleware(request: NextRequest) {
-  const response = intlMiddleware(request);
+  const response = NextResponse.next();
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnonKey =
@@ -29,8 +19,6 @@ export async function middleware(request: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
   if (!supabaseUrl || !supabaseAnonKey) {
-    // Boot without Supabase configured (e.g. CI smoke tests). Don't crash —
-    // just skip session refresh.
     return response;
   }
 
@@ -50,7 +38,6 @@ export async function middleware(request: NextRequest) {
     }
   });
 
-  // Touching getUser() forces the session refresh + cookie write if needed.
   await supabase.auth.getUser();
 
   return response;
@@ -58,7 +45,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Run on every page route except static assets and the engine WASM glue.
     "/((?!api|_next/static|_next/image|favicon.ico|engine/|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|mp3|wav|wasm)$).*)"
   ]
 };
