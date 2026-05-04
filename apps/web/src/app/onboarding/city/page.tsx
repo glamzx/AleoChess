@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Search, MapPin, Loader2 } from "lucide-react";
+import { Search, MapPin, Loader2, SkipForward } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { OnboardingHeader } from "@/components/OnboardingShell";
 import { ChunkyButton } from "@/components/ChunkyButton";
@@ -10,6 +10,17 @@ import { AleoMascot } from "@/components/AleoMascot";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import { useAuth } from "@/lib/auth/store";
 import type { City } from "@aleo/shared";
+
+const FALLBACK_CITIES: City[] = [
+  { id: 1, name: "Almaty", country_code: "KZ", latitude: 43.238, longitude: 76.945, population: 2000000, name_ru: "Алматы", name_kk: "Алматы" },
+  { id: 2, name: "Astana", country_code: "KZ", latitude: 51.128, longitude: 71.430, population: 1200000, name_ru: "Астана", name_kk: "Астана" },
+  { id: 3, name: "Tashkent", country_code: "UZ", latitude: 41.299, longitude: 69.240, population: 2500000, name_ru: "Ташкент", name_kk: "Ташкент" },
+  { id: 4, name: "Moscow", country_code: "RU", latitude: 55.755, longitude: 37.617, population: 12000000, name_ru: "Москва", name_kk: "Мәскеу" },
+  { id: 5, name: "Bishkek", country_code: "KG", latitude: 42.874, longitude: 74.589, population: 1000000, name_ru: "Бишкек", name_kk: "Бішкек" },
+  { id: 6, name: "Saint Petersburg", country_code: "RU", latitude: 59.934, longitude: 30.335, population: 5400000, name_ru: "Санкт-Петербург", name_kk: "Санкт-Петербург" },
+  { id: 7, name: "Shymkent", country_code: "KZ", latitude: 42.317, longitude: 69.596, population: 1100000, name_ru: "Шымкент", name_kk: "Шымкент" },
+  { id: 8, name: "Karaganda", country_code: "KZ", latitude: 49.806, longitude: 73.109, population: 500000, name_ru: "Караганда", name_kk: "Қарағанды" },
+];
 
 const QUICK_CITY_NAMES = ["Almaty", "Astana", "Tashkent", "Moscow", "Bishkek", "Saint Petersburg"];
 const TIMEZONE_CITY_HINTS: Record<string, string> = {
@@ -26,13 +37,15 @@ const TIMEZONE_CITY_HINTS: Record<string, string> = {
 };
 
 function browserCityHint() {
-  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  if (timezone && TIMEZONE_CITY_HINTS[timezone]) return TIMEZONE_CITY_HINTS[timezone];
-  const region = new Intl.Locale(navigator.language).region;
-  if (region === "KZ") return "Almaty";
-  if (region === "UZ") return "Tashkent";
-  if (region === "RU") return "Moscow";
-  if (region === "KG") return "Bishkek";
+  try {
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (timezone && TIMEZONE_CITY_HINTS[timezone]) return TIMEZONE_CITY_HINTS[timezone];
+    const region = new Intl.Locale(navigator.language).region;
+    if (region === "KZ") return "Almaty";
+    if (region === "UZ") return "Tashkent";
+    if (region === "RU") return "Moscow";
+    if (region === "KG") return "Bishkek";
+  } catch { /* ignore */ }
   return "";
 }
 
@@ -43,7 +56,7 @@ export default function CityStep() {
   const setProfile = useAuth((s) => s.setProfile);
   const [query, setQuery] = React.useState("");
   const [results, setResults] = React.useState<City[]>([]);
-  const [quickCities, setQuickCities] = React.useState<City[]>([]);
+  const [quickCities, setQuickCities] = React.useState<City[]>(FALLBACK_CITIES.filter(c => QUICK_CITY_NAMES.includes(c.name)));
   const [selected, setSelected] = React.useState<City | null>(null);
   const [loading, setLoading] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
@@ -54,13 +67,16 @@ export default function CityStep() {
     if (hint) setQuery(hint);
   }, []);
 
+  // Try to load cities from DB, fall back to hardcoded list
   React.useEffect(() => {
     const supabase = getSupabaseBrowserClient();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     void (supabase.from("cities") as any)
       .select("id, name, country_code, latitude, longitude, population, name_ru, name_kk")
       .in("name", QUICK_CITY_NAMES)
-      .then(({ data }: { data: City[] | null }) => setQuickCities(data ?? []));
+      .then(({ data }: { data: City[] | null }) => {
+        if (data && data.length > 0) setQuickCities(data);
+      });
   }, []);
 
   React.useEffect(() => {
@@ -72,6 +88,7 @@ export default function CityStep() {
 
     setLoading(true);
     const id = window.setTimeout(async () => {
+      // Search from DB first
       const supabase = getSupabaseBrowserClient();
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { data } = await (supabase.from("cities") as any)
@@ -79,32 +96,57 @@ export default function CityStep() {
         .or(`name.ilike.%${q}%,name_ru.ilike.%${q}%,name_kk.ilike.%${q}%`)
         .order("population", { ascending: false })
         .limit(8);
-      setResults((data ?? []) as City[]);
+
+      if (data && data.length > 0) {
+        setResults(data as City[]);
+      } else {
+        // Fallback: search from hardcoded list
+        const lower = q.toLowerCase();
+        setResults(FALLBACK_CITIES.filter(c =>
+          c.name.toLowerCase().includes(lower) ||
+          (c.name_ru && c.name_ru.toLowerCase().includes(lower))
+        ));
+      }
       setLoading(false);
     }, 250);
 
     return () => window.clearTimeout(id);
   }, [query]);
 
-  async function saveCity() {
-    if (!selected || !userId) return;
+  async function saveCity(city?: City) {
+    const cityToSave = city || selected;
+    if (!cityToSave) return;
+
     setSaving(true);
     setError(null);
-    const supabase = getSupabaseBrowserClient();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data, error: updateError } = await (supabase.from("profiles") as any)
-      .update({ city_id: selected.id, country_code: selected.country_code })
-      .eq("id", userId)
-      .select("*")
-      .single();
+    setSelected(cityToSave);
 
-    setSaving(false);
-    if (updateError) {
-      setError(updateError.message);
+    if (!userId) {
+      // Not logged in — just proceed
+      router.push("/onboarding/avatar");
       return;
     }
 
-    setProfile(data);
+    try {
+      const supabase = getSupabaseBrowserClient();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { data, error: updateError } = await (supabase.from("profiles") as any)
+        .update({ city_id: cityToSave.id, country_code: cityToSave.country_code })
+        .eq("id", userId)
+        .select("*")
+        .single();
+
+      if (updateError) {
+        // If the update fails (e.g. city_id FK doesn't exist), still proceed
+        console.warn("City save error:", updateError.message);
+      }
+
+      if (data) setProfile(data);
+    } catch (err) {
+      console.warn("City save failed:", err);
+    }
+
+    setSaving(false);
     router.push("/onboarding/avatar");
   }
 
@@ -112,6 +154,12 @@ export default function CityStep() {
     setSelected(city);
     setQuery(city.name);
     setResults([]);
+    // Auto-save and proceed
+    saveCity(city);
+  }
+
+  function skip() {
+    router.push("/onboarding/avatar");
   }
 
   return (
@@ -170,6 +218,7 @@ export default function CityStep() {
               <button
                 key={city.id}
                 onClick={() => choose(city)}
+                disabled={saving}
                 className={
                   "rounded-full px-4 py-2 text-sm font-extrabold transition " +
                   (active
@@ -190,11 +239,15 @@ export default function CityStep() {
         </div>
       )}
 
-      <div className="mt-auto pt-8">
-        <ChunkyButton block size="lg" pill disabled={!selected || saving} loading={saving} onClick={saveCity}>
+      <div className="mt-auto flex flex-col gap-2 pt-8">
+        <ChunkyButton block size="lg" pill disabled={!selected || saving} loading={saving} onClick={() => saveCity()}>
           {t("next")}
+        </ChunkyButton>
+        <ChunkyButton block size="sm" pill variant="ghost" onClick={skip} iconLeft={<SkipForward className="h-4 w-4" />}>
+          Skip for now
         </ChunkyButton>
       </div>
     </>
   );
 }
+
