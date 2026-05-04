@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { cn } from "@/lib/cn";
 
 const locales = ["ru", "kk", "en"] as const;
@@ -11,13 +11,14 @@ export function LocaleSwitcher() {
   const locale = useLocale();
   const t = useTranslations("locales");
   const router = useRouter();
-  const pathname = usePathname() || "/";
-  const searchParams = useSearchParams();
 
   function switchLocale(nextLocale: string) {
-    const withoutLocale = pathname.replace(/^\/(ru|kk|en)(?=\/|$)/, "") || "/";
-    const query = searchParams.toString();
-    router.replace(`/${nextLocale}${withoutLocale === "/" ? "" : withoutLocale}${query ? `?${query}` : ""}`);
+    // Set locale via cookie (no URL prefix — we use localePrefix: "never")
+    document.cookie = `NEXT_LOCALE=${nextLocale};path=/;max-age=31536000;SameSite=lax`;
+    // Reload the current page to apply the new locale
+    router.refresh();
+    // Small delay to ensure cookie is set before refresh takes effect
+    setTimeout(() => window.location.reload(), 100);
   }
 
   return (

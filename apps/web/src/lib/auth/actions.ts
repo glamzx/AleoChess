@@ -169,22 +169,8 @@ async function bootstrapProfileWithUsername(userId: string, username: string, em
 
 /**
  * Used by the splash → router code-path to decide where to send the user
- * after a successful sign-in.
+ * after a successful sign-in. Always sends to /play.
  */
-export async function getPostAuthRoute(): Promise<"/play" | "/onboarding/city"> {
-  const supabase = getSupabaseServerClient();
-  const {
-    data: { user }
-  } = await supabase.auth.getUser();
-  if (!user) return "/onboarding/city";
-
-  const { data } = await supabase
-    .from("profiles")
-    .select("city_id, avatar_id")
-    .eq("id", user.id)
-    .maybeSingle();
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  if (!data || !(data as any).city_id || !(data as any).avatar_id) return "/onboarding/city";
+export async function getPostAuthRoute(): Promise<"/play"> {
   return "/play";
 }

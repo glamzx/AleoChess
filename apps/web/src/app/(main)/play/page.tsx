@@ -93,7 +93,8 @@ export default function PlayHome() {
             animate={{ scale: 1, rotate: 0 }}
             transition={{ type: "spring", stiffness: 240, damping: 14 }}
           >
-            <AleoMascot mood="cheer" size={120} bobbing />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/mascot/hero.png" alt="Aleo mascot" className="h-28 w-28 object-contain drop-shadow-lg" />
           </motion.div>
           <div className="flex-1 pt-2">
             <span className="rounded-chip bg-white/20 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-widest">
