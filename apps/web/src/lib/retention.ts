@@ -124,20 +124,39 @@ export function fallbackRetentionSummary(): RetentionSummary {
 }
 
 export async function fetchRetentionSummary(): Promise<RetentionSummary | null> {
-  const supabase = getSupabaseBrowserClient();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data, error } = await (supabase.rpc as any)("get_retention_summary");
-  if (error || !data) return null;
-  return data as RetentionSummary;
+  try {
+    const supabase = getSupabaseBrowserClient();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data, error } = await (supabase.rpc as any)("get_retention_summary");
+    if (!error && data) return data as RetentionSummary;
+  } catch {
+    // RPC doesn't exist — use local fallback
+  }
+  // Use local fallback with persisted claims
+  const summary = fallbackRetentionSummary();
+  if (typeof window !== "undefined") {
+    const freeClaimed: number[] = JSON.parse(localStorage.getItem("aleo:bp_claimed_free") ?? "[]");
+    const premClaimed: number[] = JSON.parse(localStorage.getItem("aleo:bp_claimed_premium") ?? "[]");
+    summary.battlepass.user.claimed_free_tiers = freeClaimed;
+    summary.battlepass.user.claimed_premium_tiers = premClaimed;
+    summary.battlepass.tiers = summary.battlepass.tiers.map((t) => ({
+      ...t,
+      free_claimed: freeClaimed.includes(t.tier),
+      premium_claimed: premClaimed.includes(t.tier),
+    }));
+  }
+  return summary;
 }
 
 export async function claimBattlePassTier(tier: number, track: "free" | "premium") {
-  const supabase = getSupabaseBrowserClient();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (supabase.rpc as any)("claim_battlepass_tier", {
-    p_tier: tier,
-    p_track: track
-  });
+  // Store claims locally until backend RPC exists
+  const key = `aleo:bp_claimed_${track}`;
+  const claimed: number[] = JSON.parse(localStorage.getItem(key) ?? "[]");
+  if (!claimed.includes(tier)) {
+    claimed.push(tier);
+    localStorage.setItem(key, JSON.stringify(claimed));
+  }
+  return { data: null, error: null };
 }
 
 export async function recordPuzzleSolved(userId: string, puzzleId?: string) {

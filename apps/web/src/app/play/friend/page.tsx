@@ -212,7 +212,8 @@ export default function FriendLobbyPage() {
       >
         {/* Header */}
         <div className="flex items-center gap-3">
-          <AleoMascot mood="cheer" size={80} bobbing />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/mascot/battle.png" alt="Battle" className="h-20 w-20 object-contain" />
           <div>
             <h1 className="text-2xl font-extrabold text-navy">Play a Friend</h1>
             <p className="text-sm font-bold text-muted">
@@ -359,7 +360,8 @@ export default function FriendLobbyPage() {
 
               {/* Waiting indicator */}
               <div className="flex flex-col items-center gap-3 rounded-hero bg-white p-5 shadow-card">
-                <AleoMascot mood="thinking" size={100} bobbing />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/mascot/battle.png" alt="Waiting" className="h-24 w-24 object-contain" />
                 <div className="flex items-center gap-2 text-sm font-extrabold text-navy">
                   {friendJoined ? (
                     <Check className="h-4 w-4 text-winGreen" />

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Settings as SettingsIcon, Award, Crown, Flame, Rocket, Sparkles, Target, Trophy, LogOut } from "lucide-react";
+import { Settings as SettingsIcon, Award, Crown, Flame, Rocket, Sparkles, Target, Trophy, LogOut, Pencil, Save } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import { RankBadge } from "@/components/RankBadge";
 import { CoinBalance } from "@/components/CoinBalance";
@@ -103,19 +103,19 @@ export default function ProfilePage() {
       {/* stats grid */}
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {[
-          { label: t("games"), value: format.number(312) },
-          { label: t("winRate"), value: "58%" },
-          { label: t("currentStreak"), value: format.number(streak) },
-          { label: t("bestStreak"), value: format.number(longest) },
-          { label: t("seasonXp"), value: format.number(summary.battlepass.user.xp) },
-          { label: t("coins"), value: format.number(coins) }
+          { label: t("games"), value: "0", color: "text-navy" },
+          { label: t("winRate"), value: "0%", color: "text-cobalt" },
+          { label: t("currentStreak"), value: format.number(streak), color: "text-navy" },
+          { label: t("bestStreak"), value: format.number(longest), color: "text-navy" },
+          { label: t("seasonXp"), value: "0", color: "text-sky" },
+          { label: t("coins"), value: format.number(coins), color: "text-proGold" }
         ].map((s) => (
           <div
             key={s.label}
             className="rounded-card bg-white p-4 text-center shadow-card"
           >
-            <div className="tabnum text-2xl font-extrabold text-navy">{s.value}</div>
-            <div className="text-[10px] font-extrabold uppercase tracking-widest text-muted">
+            <div className={`tabnum text-2xl font-extrabold ${s.color}`}>{s.value}</div>
+            <div className="text-[10px] font-extrabold uppercase tracking-widest text-cobalt">
               {s.label}
             </div>
           </div>
@@ -221,11 +221,14 @@ export default function ProfilePage() {
 
       <section className="rounded-card bg-white p-4 shadow-card">
         <h3 className="text-base font-extrabold text-navy">{t("settings")}</h3>
-        <p className="mt-1 text-xs font-bold text-muted">{t("languageHint")}</p>
+        <p className="mt-1 text-xs font-bold text-cobalt">{t("languageHint")}</p>
         <div className="mt-3">
           <LocaleSwitcher />
         </div>
       </section>
+
+      {/* Edit Profile */}
+      <EditProfileSection />
 
       <section className="pb-8">
         <ChunkyButton
@@ -241,5 +244,85 @@ export default function ProfilePage() {
         </ChunkyButton>
       </section>
     </div>
+  );
+}
+
+function EditProfileSection() {
+  const profile = useAuth((s) => s.profile);
+  const [editNickname, setEditNickname] = React.useState(profile?.display_name ?? "");
+  const [editUsername, setEditUsername] = React.useState(profile?.username ?? "");
+  const [saving, setSaving] = React.useState(false);
+  const [saved, setSaved] = React.useState(false);
+
+  React.useEffect(() => {
+    if (profile?.display_name) setEditNickname(profile.display_name);
+    if (profile?.username) setEditUsername(profile.username);
+  }, [profile?.display_name, profile?.username]);
+
+  async function handleSave() {
+    if (!profile?.id) return;
+    setSaving(true);
+    try {
+      const { getSupabaseBrowserClient } = await import("@/lib/supabase/client");
+      const supabase = getSupabaseBrowserClient();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await (supabase.from("profiles") as any)
+        .update({
+          display_name: editNickname.trim() || editUsername.trim(),
+          username: editUsername.trim().toLowerCase().replace(/\s+/g, "_").replace(/^@/, ""),
+        })
+        .eq("id", profile.id);
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+    } catch {
+      // silent fail
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <section className="rounded-card bg-white p-4 shadow-card">
+      <h3 className="mb-3 text-base font-extrabold text-navy">Edit Profile</h3>
+      <div className="space-y-3">
+        <div>
+          <label className="text-xs font-extrabold uppercase tracking-widest text-cobalt">Nickname</label>
+          <div className="relative mt-1">
+            <Pencil className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-cobalt" />
+            <input
+              type="text"
+              value={editNickname}
+              onChange={(e) => setEditNickname(e.target.value)}
+              className="h-12 w-full rounded-card border-2 border-pale bg-white pl-10 pr-4 text-sm font-extrabold text-navy focus:border-sky focus:outline-none"
+              placeholder="Your nickname"
+            />
+          </div>
+        </div>
+        <div>
+          <label className="text-xs font-extrabold uppercase tracking-widest text-cobalt">@Username</label>
+          <div className="relative mt-1">
+            <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm font-extrabold text-cobalt">@</span>
+            <input
+              type="text"
+              value={editUsername}
+              onChange={(e) => setEditUsername(e.target.value.replace(/\s/g, ""))}
+              className="h-12 w-full rounded-card border-2 border-pale bg-white pl-9 pr-4 text-sm font-extrabold text-navy focus:border-sky focus:outline-none"
+              placeholder="username"
+            />
+          </div>
+        </div>
+        <ChunkyButton
+          block
+          size="md"
+          pill
+          onClick={handleSave}
+          loading={saving}
+          disabled={saving}
+          iconLeft={saved ? undefined : <Save className="h-4 w-4" />}
+        >
+          {saved ? "✓ Saved!" : "Save Changes"}
+        </ChunkyButton>
+      </div>
+    </section>
   );
 }

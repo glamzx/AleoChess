@@ -12,7 +12,7 @@ import { cn } from "@/lib/cn";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import { getTopCities, type CityLeaderboardEntry } from "@/lib/cities/leaderboard";
 
-type Tab = "friends" | "cities" | "clans";
+type Tab = "friends" | "cities";
 
 export default function SocialPage() {
   const t = useTranslations("social");
@@ -56,14 +56,14 @@ export default function SocialPage() {
     <div className="space-y-4 pt-2">
       <div className="flex items-center gap-3">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/mascot/friends.png" alt="Friends" className="h-16 w-16 object-contain" />
-        <h1 className="text-3xl font-extrabold text-navy">{t("friends")}</h1>
+        <img src="/mascot/friends.png" alt="Social" className="h-16 w-16 object-contain" />
+        <h1 className="text-3xl font-extrabold text-navy">Social</h1>
       </div>
 
       {/* sub-tabs */}
       <div className="rounded-card bg-pale p-1">
-        <div className="grid grid-cols-3 gap-1">
-          {(["friends", "cities", "clans"] as Tab[]).map((tb) => (
+        <div className="grid grid-cols-2 gap-1">
+          {(["friends", "cities"] as Tab[]).map((tb) => (
             <button
               key={tb}
               onClick={() => setTab(tb)}
@@ -171,51 +171,6 @@ export default function SocialPage() {
               </div>
             </>
           )}
-        </section>
-      )}
-
-      {tab === "clans" && (
-        <section className="space-y-3">
-          <div className="rounded-hero bg-gradient-to-br from-cobalt to-sky p-5 text-white shadow-hero">
-            <span className="rounded-chip bg-white/20 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-widest">
-              {t("yourClan")}
-            </span>
-            <h3 className="mt-2 text-2xl font-extrabold">Steppe Knights</h3>
-            <p className="text-xs font-bold text-white/80">
-              {t("weeklyPoints", { members: format.number(142), points: format.number(28140) })}
-            </p>
-            <div className="mt-3 flex gap-2">
-              <ChunkyButton size="sm" variant="pro">
-                {t("clanWar")}
-              </ChunkyButton>
-              <ChunkyButton
-                size="sm"
-                variant="ghost"
-                className="!bg-white/20 !text-white !shadow-[0_4px_0_0_rgba(0,0,0,0.2)]"
-              >
-                {t("invite")}
-              </ChunkyButton>
-            </div>
-          </div>
-          <h4 className="text-sm font-extrabold uppercase tracking-widest text-muted">
-            {t("browseClans")}
-          </h4>
-          <div className="space-y-2">
-            {clans
-              .filter((c) => !c.mine)
-              .map((c, i) => (
-                <LeaderboardRow
-                  key={c.name}
-                  variant="clan"
-                  rank={i + 2}
-                  name={c.name}
-                  subtitle={t("members", { count: format.number(c.members) })}
-                  points={c.points}
-                  trend="flat"
-                  rightSlot={<ChunkyButton size="sm">{t("join")}</ChunkyButton>}
-                />
-              ))}
-          </div>
         </section>
       )}
     </div>

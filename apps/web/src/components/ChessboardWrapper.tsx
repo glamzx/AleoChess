@@ -279,13 +279,22 @@ export function ChessboardWrapper({
       }
       return;
     }
-    if (!legalTargetSet.has(sq)) return;
+    // If clicked square has a friendly piece, switch selection to it
+    const clickedPiece = pieceAt(sq);
+    const selectedPiece = pieceAt(selected);
+    if (clickedPiece && selectedPiece && clickedPiece.color === selectedPiece.color) {
+      setSelected(sq);
+      return;
+    }
+    if (!legalTargetSet.has(sq) && !captureTargetSet.has(sq)) {
+      setSelected(null);
+      return;
+    }
     const targetPiece = pieceAt(sq);
     onMove?.(selected, sq);
     if (targetPiece) playSfx("capture");
     else playSfx("pieceMove");
     setSelected(null);
-    // TODO: wire to root-level Stockfish WASM for move legality.
   }
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
