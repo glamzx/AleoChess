@@ -9,23 +9,39 @@ import { courses } from "@/lib/mock";
 
 // Sample lesson content for free courses
 const lessonContent: Record<string, { title: string; content: string }[]> = {
-  "Chess Basics": [
-    { title: "The Board", content: "A chess board has 64 squares arranged in an 8×8 grid. Squares alternate between light and dark colors." },
-    { title: "The Pieces", content: "Each player starts with 16 pieces: 1 King, 1 Queen, 2 Rooks, 2 Bishops, 2 Knights, and 8 Pawns." },
-    { title: "How Pieces Move", content: "Each piece moves differently. The Queen is the most powerful, moving in any direction. The Knight moves in an L-shape." },
-    { title: "Check & Checkmate", content: "When a King is under attack, it's in check. If there's no way to escape check, it's checkmate — game over!" },
-    { title: "Castling", content: "Castling is a special move where the King moves two squares toward a Rook, and the Rook jumps over the King." },
+  "Openings 101": [
+    { title: "Italian Game", content: "1.e4 e5 2.Nf3 Nc6 3.Bc4 — A classic opening that develops pieces quickly and aims at the f7 square." },
+    { title: "Sicilian Defense", content: "1.e4 c5 — The most popular response to 1.e4 at the top level. Creates asymmetric positions." },
+    { title: "Queen's Gambit", content: "1.d4 d5 2.c4 — White offers a pawn to gain control of the center. A very solid opening choice." },
+    { title: "French Defense", content: "1.e4 e6 — A solid, strategic opening. Black builds a strong pawn chain and fights for counterplay." },
+    { title: "Ruy López", content: "1.e4 e5 2.Nf3 Nc6 3.Bb5 — One of the oldest openings. White puts pressure on Black's center early." },
+    { title: "King's Indian Defense", content: "1.d4 Nf6 2.c4 g6 — Black allows White to build a big center, then counter-attacks it aggressively." },
+    { title: "London System", content: "1.d4 d5 2.Bf4 — A simple, solid system. Great for beginners who want a reliable setup with White." },
+    { title: "Caro-Kann Defense", content: "1.e4 c6 — A very solid defense. Black aims for a strong pawn structure and steady development." },
+    { title: "Scotch Game", content: "1.e4 e5 2.Nf3 Nc6 3.d4 — White immediately opens the center. Leads to active piece play." },
+    { title: "Dutch Defense", content: "1.d4 f5 — An aggressive choice for Black. Aims to control the e4 square and create kingside attacks." },
+    { title: "Pirc Defense", content: "1.e4 d6 2.d4 Nf6 3.Nc3 g6 — A hypermodern opening where Black lets White build a center then attacks it." },
+    { title: "English Opening", content: "1.c4 — A flexible opening that can transpose into many different structures. Very popular at top level." },
   ],
-  "Tactics 101": [
+  "Tactics Basics": [
     { title: "Forks", content: "A fork is when one piece attacks two or more pieces at the same time. Knights are great at forking!" },
     { title: "Pins", content: "A pin is when a piece cannot move because doing so would expose a more valuable piece behind it." },
     { title: "Skewers", content: "A skewer is the opposite of a pin — the more valuable piece is in front and must move, exposing the piece behind." },
     { title: "Discovered Attacks", content: "A discovered attack happens when moving one piece reveals an attack from another piece behind it." },
-  ],
-  "Openings": [
-    { title: "Italian Game", content: "1.e4 e5 2.Nf3 Nc6 3.Bc4 — A classic opening that develops pieces quickly and aims at the f7 square." },
-    { title: "Sicilian Defense", content: "1.e4 c5 — The most popular response to 1.e4 at the top level. Creates asymmetric positions." },
-    { title: "Queen's Gambit", content: "1.d4 d5 2.c4 — White offers a pawn to gain control of the center. A very solid opening choice." },
+    { title: "Double Check", content: "A double check is when two pieces give check at the same time. The king MUST move — blocking is impossible." },
+    { title: "Back Rank Mate", content: "A back rank mate happens when a rook or queen checkmates a king trapped behind its own pawns." },
+    { title: "Removing the Defender", content: "Capture or deflect a piece that is protecting something important, then win the undefended piece." },
+    { title: "Overloaded Pieces", content: "A piece is overloaded when it has too many jobs. Attack what it's protecting to exploit the weakness." },
+    { title: "Trapped Pieces", content: "Sometimes a piece has no safe squares to go to. Use your pawns and pieces to restrict its escape." },
+    { title: "Zwischenzug", content: "An 'in-between move' — instead of making the expected move, you play a surprising threat first." },
+    { title: "Deflection", content: "Force an opponent's piece away from a key square by threatening something else." },
+    { title: "Decoy", content: "Lure an enemy piece to a bad square where it can be captured or where it blocks its own pieces." },
+    { title: "X-ray Attack", content: "An attack through another piece. For example, a rook on the same file as an enemy queen with a piece in between." },
+    { title: "Interference", content: "Place a piece between two enemy pieces that are defending each other, breaking their coordination." },
+    { title: "Desperado", content: "When a piece is lost anyway, use it to capture as much value as possible before it goes." },
+    { title: "Windmill", content: "A combination of discovered checks and captures. The attacking piece can capture many pieces in sequence." },
+    { title: "Greek Gift Sacrifice", content: "Bxh7+! A classic bishop sacrifice on h7 to expose the castled king and launch a devastating attack." },
+    { title: "Smothered Mate", content: "A knight delivers checkmate while the king is surrounded (smothered) by its own pieces." },
   ],
 };
 

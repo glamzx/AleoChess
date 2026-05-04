@@ -113,7 +113,7 @@ export function fallbackRetentionSummary(): RetentionSummary {
         const tier = i + 1;
         return {
           tier,
-          xp_required: tier * 1000,
+          xp_required: tier === 1 ? 0 : tier * 1000,
           free_reward: { type: "coins", amount: 50 + tier * 5 },
           premium_reward: tier % 10 === 0
             ? { type: "skin", item_id: `board.royale_${tier}` }

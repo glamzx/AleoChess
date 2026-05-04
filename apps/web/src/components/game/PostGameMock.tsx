@@ -38,11 +38,21 @@ export function PostGameMock({
   const moveHistory = useGameStore((s) => s.moveHistory);
   const [showCoach, setShowCoach] = React.useState(true);
   const [xpGained, setXpGained] = React.useState(0);
+  const [eloChange, setEloChange] = React.useState(0);
+  const [newElo, setNewElo] = React.useState(800);
 
-  // Award XP and track quests on mount
+  // Award XP, update Elo, and track quests on mount
   React.useEffect(() => {
     const xp = won ? 150 : drew ? 100 : 75;
     setXpGained(xp);
+
+    // Elo changes
+    const eloDelta = won ? 25 : drew ? 5 : -15;
+    setEloChange(eloDelta);
+    const currentElo = parseInt(localStorage.getItem("aleo:elo") ?? "800", 10);
+    const updated = Math.max(100, currentElo + eloDelta);
+    localStorage.setItem("aleo:elo", String(updated));
+    setNewElo(updated);
 
     // Add XP to battle pass (localStorage)
     const currentXp = parseInt(localStorage.getItem("aleo:bp_xp") ?? "0", 10);
@@ -162,6 +172,14 @@ export function PostGameMock({
           </motion.span>
           <span className="rounded-full bg-white/20 px-3 py-1 text-sm font-extrabold">
             vs {opponentLabel}
+          </span>
+        </div>
+        <div className="mt-2 flex justify-center gap-2">
+          <span className={`rounded-full px-3 py-1 text-xs font-extrabold ${eloChange >= 0 ? "bg-winGreen/20 text-white" : "bg-lossRed/20 text-white"}`}>
+            Elo: {newElo} ({eloChange >= 0 ? "+" : ""}{eloChange})
+          </span>
+          <span className="rounded-full bg-proGold/30 px-3 py-1 text-xs font-extrabold text-white">
+            +{xpGained} XP
           </span>
         </div>
       </motion.div>

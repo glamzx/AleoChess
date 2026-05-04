@@ -141,7 +141,8 @@ export default function BotLobbyPage() {
         transition={{ type: "spring", stiffness: 240, damping: 16 }}
         className="mt-4"
       >
-        <AleoMascot mood="pointing" size={120} />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/mascot/bot-star.png" alt="Play Bot" className="h-28 w-28 object-contain drop-shadow-md" />
       </motion.div>
 
       {/* Difficulty picker */}

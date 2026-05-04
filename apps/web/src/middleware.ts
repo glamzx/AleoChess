@@ -1,8 +1,8 @@
 /**
- * Supabase auth middleware.
+ * Combined Supabase auth + next-intl locale middleware.
  *
- * Refreshes the Supabase session cookie on every request, so the user stays
- * logged in across server-rendered navigations.
+ * 1. Refreshes the Supabase session cookie on every request
+ * 2. Reads NEXT_LOCALE cookie to determine user's preferred language
  */
 
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
@@ -12,6 +12,12 @@ import type { Database } from "@aleo/shared/db-types";
 
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
+
+  // Read NEXT_LOCALE cookie and set it as a header for next-intl to pick up
+  const localeCookie = request.cookies.get("NEXT_LOCALE")?.value;
+  if (localeCookie) {
+    response.headers.set("x-next-intl-locale", localeCookie);
+  }
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnonKey =

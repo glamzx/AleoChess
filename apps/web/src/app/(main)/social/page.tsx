@@ -23,6 +23,14 @@ export default function SocialPage() {
   const [cities, setCities] = React.useState<CityLeaderboardEntry[]>([]);
   const [citiesLoading, setCitiesLoading] = React.useState(false);
   const [citiesError, setCitiesError] = React.useState<string | null>(null);
+  const [sentIds, setSentIds] = React.useState<Set<string>>(new Set());
+  const [toast, setToast] = React.useState<string | null>(null);
+
+  function handleAddFriend(userId: string, name: string) {
+    setSentIds((prev) => new Set(prev).add(userId));
+    setToast(`Friend request sent to ${name}! ✓`);
+    setTimeout(() => setToast(null), 3000);
+  }
 
   React.useEffect(() => {
     const q = query.trim().replace(/^@/, "");
@@ -53,7 +61,13 @@ export default function SocialPage() {
   }, [cities.length, citiesLoading, tab]);
 
   return (
-    <div className="space-y-4 pt-2">
+    <div className="relative space-y-4 pt-2">
+      {/* Toast notification */}
+      {toast && (
+        <div className="fixed left-1/2 top-6 z-50 -translate-x-1/2 animate-bounce rounded-card bg-winGreen px-5 py-3 text-sm font-extrabold text-white shadow-hero">
+          {toast}
+        </div>
+      )}
       <div className="flex items-center gap-3">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/mascot/friends.png" alt="Social" className="h-16 w-16 object-contain" />
@@ -104,7 +118,13 @@ export default function SocialPage() {
                 subtitle={`@${f.username}`}
                 rankBadge="Silver"
                 points={f.elo_rating}
-                rightSlot={<ChunkyButton size="sm" variant="success" iconLeft={<Plus className="h-3 w-3" />}>{t("add")}</ChunkyButton>}
+                rightSlot={
+                  sentIds.has(f.id) ? (
+                    <span className="rounded-chip bg-winGreen/15 px-3 py-1.5 text-xs font-extrabold text-winGreen">Sent ✓</span>
+                  ) : (
+                    <ChunkyButton size="sm" variant="success" iconLeft={<Plus className="h-3 w-3" />} onClick={() => handleAddFriend(f.id, f.display_name ?? f.username)}>{t("add")}</ChunkyButton>
+                  )
+                }
               />
             ))}
             {results.length === 0 && friends.map((f, i) => (
