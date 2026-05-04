@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Settings as SettingsIcon, Award, Crown, Flame, Rocket, Sparkles, Target, Trophy } from "lucide-react";
+import { Settings as SettingsIcon, Award, Crown, Flame, Rocket, Sparkles, Target, Trophy, LogOut } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import { RankBadge } from "@/components/RankBadge";
 import { CoinBalance } from "@/components/CoinBalance";
@@ -13,6 +13,7 @@ import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import { me, achievements, skins } from "@/lib/mock";
 import { cn } from "@/lib/cn";
 import { useAuth } from "@/lib/auth/store";
+import { signOut } from "@/lib/auth/actions";
 import { battlePassLevel, fallbackRetentionSummary, fetchRetentionSummary, type RetentionSummary } from "@/lib/retention";
 
 const iconFor: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -224,6 +225,20 @@ export default function ProfilePage() {
         <div className="mt-3">
           <LocaleSwitcher />
         </div>
+      </section>
+
+      <section className="pb-8">
+        <ChunkyButton
+          block
+          size="lg"
+          pill
+          variant="ghost"
+          iconLeft={<LogOut className="h-5 w-5" />}
+          onClick={() => signOut()}
+          className="!text-lossRed hover:!bg-lossRed/10"
+        >
+          Log Out
+        </ChunkyButton>
       </section>
     </div>
   );

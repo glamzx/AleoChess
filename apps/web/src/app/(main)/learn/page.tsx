@@ -13,7 +13,11 @@ export default function LearnPage() {
 
   return (
     <div className="space-y-6 pt-2">
-      <h1 className="text-3xl font-extrabold text-navy">{t("title")}</h1>
+      <div className="flex items-center gap-3">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/mascot/learn.png" alt="Learning mascot" className="h-16 w-16 object-contain" />
+        <h1 className="text-3xl font-extrabold text-navy">{t("title")}</h1>
+      </div>
 
       <section>
         <h3 className="mb-2 text-base font-extrabold text-navy">{t("free")}</h3>
