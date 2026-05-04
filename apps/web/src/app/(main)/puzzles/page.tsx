@@ -39,7 +39,7 @@ export default function PuzzlesPage() {
 
       {/* Puzzle Rush */}
       <Link
-        href="/puzzles"
+        href="/puzzles/rush"
         className="block overflow-hidden rounded-hero bg-gradient-to-br from-lossRed to-[#C73838] p-5 text-white shadow-hero"
       >
         <div className="flex items-center gap-3">

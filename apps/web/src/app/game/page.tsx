@@ -46,13 +46,14 @@ export default function GamePage() {
       </header>
 
       {/* board + side panel */}
-      <section className="flex flex-1 flex-col items-center justify-center gap-3 px-3 py-3 lg:flex-row lg:items-start lg:gap-6">
-        <div className="flex w-full justify-center">
+      <section className="flex flex-1 flex-col items-center justify-center gap-3 px-3 py-3 lg:flex-row lg:items-center lg:gap-6">
+        <div className="mx-auto flex w-full max-w-[min(420px,calc(100vw-2rem))] items-center justify-center">
           <ChessboardWrapper
             position={midGameFen}
-            size={Math.min(420, typeof window !== "undefined" ? window.innerWidth - 32 : 360)}
+            size={380}
             boardTheme="ocean"
             highlightLast={{ from: "e2", to: "e4" }}
+            responsive
           />
         </div>
 

@@ -198,6 +198,7 @@ export interface ChessboardWrapperProps {
   showCoords?: boolean;
   highlightLast?: { from: string; to: string };
   className?: string;
+  responsive?: boolean; // if true, board fills container width
 }
 
 export function ChessboardWrapper({
@@ -209,8 +210,24 @@ export function ChessboardWrapper({
   size = 360,
   showCoords = true,
   highlightLast,
-  className
+  className,
+  responsive = false
 }: ChessboardWrapperProps) {
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const [computedSize, setComputedSize] = React.useState(size);
+
+  React.useEffect(() => {
+    if (!responsive || !containerRef.current) return;
+    const measure = () => {
+      if (containerRef.current) {
+        const w = containerRef.current.offsetWidth;
+        setComputedSize(Math.min(w, size));
+      }
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [responsive, size]);
   const palette = themePalettes[boardTheme];
   const board = React.useMemo(() => parseFen(position), [position]);
   const [selected, setSelected] = React.useState<string | null>(null);
@@ -294,7 +311,10 @@ export function ChessboardWrapper({
     setCursor(`${FILES[next.f]}${RANKS[next.r]}`);
   }
 
+  const actualSize = responsive ? computedSize : size;
+
   return (
+    <div ref={containerRef} className={responsive ? "w-full" : undefined}>
     <div
       role="grid"
       aria-label="Chess board"
@@ -312,8 +332,8 @@ export function ChessboardWrapper({
       <div
         className="grid overflow-hidden rounded-chip"
         style={{
-          width: size,
-          height: size,
+          width: actualSize,
+          height: actualSize,
           gridTemplateColumns: "repeat(8, 1fr)",
           gridTemplateRows: "repeat(8, 1fr)"
         }}
@@ -411,6 +431,7 @@ export function ChessboardWrapper({
           })
         )}
       </div>
+    </div>
     </div>
   );
 }
