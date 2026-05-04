@@ -100,7 +100,7 @@ function SplashPageContent() {
     router.replace(route);
   }
 
-  const inputClass = "h-13 w-full rounded-2xl border-2 border-pale bg-white px-4 pl-11 text-sm font-bold text-navy placeholder:text-muted/60 focus:border-sky focus:outline-none transition-colors";
+  const inputClass = "h-14 w-full rounded-card border-[3px] border-pale bg-white px-5 pl-12 text-base font-extrabold text-navy placeholder:text-muted/50 focus:border-sky focus:outline-none transition-colors shadow-card";
 
   return (
     <main className="relative flex min-h-[100dvh] flex-col items-center justify-between overflow-hidden bg-gradient-to-b from-pale via-white to-pale px-6 pb-8 pt-12 text-center">
@@ -199,10 +199,10 @@ function SplashPageContent() {
               className="flex flex-col gap-3"
               onSubmit={handleSignUp}
             >
-              <h2 className="text-lg font-extrabold text-navy">Create Account</h2>
+              <h2 className="text-xl font-extrabold text-navy">Create Account ✨</h2>
 
               <div className="relative">
-                <AtSign className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-cobalt" />
+                <AtSign className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-cobalt" />
                 <input
                   type="text"
                   value={username}
@@ -216,7 +216,7 @@ function SplashPageContent() {
               </div>
 
               <div className="relative">
-                <Mail className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-cobalt" />
+                <Mail className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-cobalt" />
                 <input
                   name="email"
                   type="email"
@@ -231,7 +231,7 @@ function SplashPageContent() {
               </div>
 
               <div className="relative">
-                <Lock className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-cobalt" />
+                <Lock className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-cobalt" />
                 <input
                   name="password"
                   type={showPassword ? "text" : "password"}
@@ -286,10 +286,10 @@ function SplashPageContent() {
               className="flex flex-col gap-3"
               onSubmit={handleLogin}
             >
-              <h2 className="text-lg font-extrabold text-navy">Log In</h2>
+              <h2 className="text-xl font-extrabold text-navy">Welcome Back 👋</h2>
 
               <div className="relative">
-                <Mail className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-cobalt" />
+                <Mail className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-cobalt" />
                 <input
                   name="email"
                   type="email"
@@ -305,7 +305,7 @@ function SplashPageContent() {
               </div>
 
               <div className="relative">
-                <Lock className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-cobalt" />
+                <Lock className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-cobalt" />
                 <input
                   name="password"
                   type={showPassword ? "text" : "password"}

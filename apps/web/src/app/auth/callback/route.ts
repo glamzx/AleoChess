@@ -1,15 +1,14 @@
 /**
  * GET /auth/callback
  *
- * Endpoint hit by Supabase OAuth + magic-link redirects. Exchanges the
- * `code` query param for a session (which sets the auth cookies via the
- * SSR client), then redirects to `/onboarding/city` or `/play` depending
- * on whether the user has finished onboarding.
+ * Endpoint hit by Supabase OAuth + email verification redirects. Exchanges the
+ * `code` query param for a session, then redirects to the verification success
+ * page or directly to /play.
  */
 
 import { NextResponse, type NextRequest } from "next/server";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
-import { bootstrapProfile, getPostAuthRoute } from "@/lib/auth/actions";
+import { bootstrapProfile } from "@/lib/auth/actions";
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
@@ -27,6 +26,7 @@ export async function GET(request: NextRequest) {
     await bootstrapProfile();
   }
 
-  const target = next ?? (await getPostAuthRoute());
+  // Redirect to success page (unless a specific next URL was provided)
+  const target = next ?? "/auth/verified";
   return NextResponse.redirect(`${origin}${target}`);
 }
