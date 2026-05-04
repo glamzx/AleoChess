@@ -63,7 +63,7 @@ export default function ProfilePage() {
           <RankBadge tier={me.rank} size={88} />
           <div className="flex-1">
             <h1 className="text-2xl font-extrabold text-navy">{name}</h1>
-            <p className="text-sm font-bold text-muted">{handle}</p>
+            <p className="text-sm font-bold text-cobalt/70">{handle}</p>
             <div className="mt-2 flex flex-wrap gap-1.5">
               <span className="rounded-chip bg-white px-2 py-0.5 text-xs font-extrabold text-cobalt shadow-card">
                 {me.city}
@@ -85,7 +85,7 @@ export default function ProfilePage() {
 
         {/* xp progress */}
         <div className="mt-4">
-          <div className="flex items-center justify-between text-xs font-extrabold text-muted">
+          <div className="flex items-center justify-between text-xs font-extrabold text-cobalt/70">
             <span>{t("level", { tier: bp.tier })}</span>
             <span className="tabnum">
               {t("xp", { xp: bp.xpIntoTier })}
@@ -157,7 +157,7 @@ export default function ProfilePage() {
                 </div>
                 <div className="text-center">
                   <div className="text-sm font-extrabold text-navy">{s.name}</div>
-                  <div className="text-[10px] font-bold uppercase text-muted">
+                  <div className="text-[10px] font-bold uppercase text-cobalt/70">
                     {s.type}
                   </div>
                 </div>
@@ -193,7 +193,7 @@ export default function ProfilePage() {
                 <span
                   className={cn(
                     "grid h-12 w-12 place-items-center rounded-full",
-                    a.earned ? "bg-proGold text-navy" : "bg-pale text-muted"
+                    a.earned ? "bg-proGold text-navy" : "bg-pale text-cobalt/70"
                   )}
                 >
                   <Icon className="h-6 w-6" />

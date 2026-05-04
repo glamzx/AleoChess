@@ -73,7 +73,7 @@ export function BattlePassTrack({
         )}
       >
         {(lockedPremium || !unlocked) && (
-          <Lock className="absolute right-1.5 top-1.5 h-3.5 w-3.5 text-muted" />
+          <Lock className="absolute right-1.5 top-1.5 h-3.5 w-3.5 text-cobalt/70" />
         )}
         {opening === key ? (
           <LootCapsule size={62} reward={label} rarity={premium ? "Epic" : "Rare"} />
@@ -83,7 +83,7 @@ export function BattlePassTrack({
             <div className="min-h-8 text-[11px] font-extrabold leading-tight text-navy">
               {label}
             </div>
-            <div className={cn("text-[9px] font-extrabold uppercase", premium ? "text-proGoldDark" : "text-muted")}>
+            <div className={cn("text-[9px] font-extrabold uppercase", premium ? "text-proGoldDark" : "text-cobalt/70")}>
               {premium ? t("premium") : t("free")}
             </div>
             {claimed ? (
@@ -115,7 +115,7 @@ export function BattlePassTrack({
           <h3 className="text-xl font-extrabold text-navy">
             {t("heading", { season: data.battlepass.season.name })}
           </h3>
-          <p className="text-sm font-bold text-muted">
+          <p className="text-sm font-bold text-cobalt/70">
             {t("tierProgress", { tier: currentTier, xp: xpIntoTier })}
           </p>
         </div>
@@ -135,7 +135,7 @@ export function BattlePassTrack({
         <div className="flex min-w-max gap-3 pb-2">
           {tiers.map((tierItem) => (
               <div key={tierItem.tier} className="flex w-[118px] flex-shrink-0 flex-col items-center gap-2">
-                <div className="text-[10px] font-extrabold uppercase tracking-widest text-muted">
+                <div className="text-[10px] font-extrabold uppercase tracking-widest text-cobalt/70">
                   {t("tierLabel", { tier: tierItem.tier })}
                 </div>
                 {tierCell(tierItem, "free")}

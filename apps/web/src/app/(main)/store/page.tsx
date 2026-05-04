@@ -69,8 +69,9 @@ function StorePreview({ item }: { item: StoreItem }) {
 
   if (item.kind === "pieces") {
     return (
-      <div className="grid h-28 place-items-center rounded-card" style={{ background: `${colors[1]}33` }}>
-        <span className="text-5xl font-extrabold text-navy">♞</span>
+      <div className="flex h-28 items-center justify-center gap-3 rounded-card" style={{ background: `${colors[1]}15` }}>
+        <span className="text-5xl drop-shadow-md" style={{ color: colors[0] }}>♞</span>
+        <span className="text-5xl drop-shadow-md" style={{ color: colors[1] }}>♚</span>
       </div>
     );
   }
@@ -134,7 +135,7 @@ function StoreItemCard({
 
       <div className="mt-3 min-h-16">
         <h3 className="truncate text-sm font-extrabold text-navy">{itemName(item, locale)}</h3>
-        <p className="mt-0.5 line-clamp-2 text-[11px] font-bold text-muted">
+        <p className="mt-0.5 line-clamp-2 text-[11px] font-bold text-cobalt/70">
           {itemDescription(item, locale)}
         </p>
       </div>
@@ -243,7 +244,7 @@ export default function StorePage() {
       <header className="flex items-center justify-between gap-3">
         <div>
           <h1 className="text-3xl font-extrabold text-navy">{t("title")}</h1>
-          <p className="text-sm font-bold text-muted">{t("subtitle")}</p>
+          <p className="text-sm font-bold text-cobalt/70">{t("subtitle")}</p>
         </div>
         <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-sm font-extrabold text-navy shadow-card">
           <CoinIcon size={18} />
@@ -283,7 +284,7 @@ export default function StorePage() {
       {tab !== "battlePass" && tab !== "pro" && (
         <>
           <section className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1 text-xs font-extrabold uppercase tracking-widest text-muted">
+            <span className="inline-flex items-center gap-1 text-xs font-extrabold uppercase tracking-widest text-cobalt/70">
               <Filter className="h-3.5 w-3.5" /> {t("filters")}
             </span>
             {(["all", "owned", "locked"] as OwnedFilter[]).map((next) => (
@@ -391,7 +392,7 @@ export default function StorePage() {
           </div>
 
           <div className="overflow-hidden rounded-hero bg-white shadow-card">
-            <div className="grid grid-cols-[1fr_84px_84px] gap-2 px-4 py-3 text-xs font-extrabold uppercase tracking-widest text-muted">
+            <div className="grid grid-cols-[1fr_84px_84px] gap-2 px-4 py-3 text-xs font-extrabold uppercase tracking-widest text-cobalt/70">
               <span>{t("feature")}</span>
               <span className="text-center">{t("freePlan")}</span>
               <span className="text-center text-sparkle">{t("proPlan")}</span>
@@ -405,7 +406,7 @@ export default function StorePage() {
                 )}
               >
                 <span>{t(`features.${feature.feature}`)}</span>
-                <span className="text-center text-xs font-extrabold text-muted">
+                <span className="text-center text-xs font-extrabold text-cobalt/70">
                   {feature.free === "locked" ? t("locked") : t(`features.${feature.free}`)}
                 </span>
                 <span className="text-center text-xs font-extrabold text-sparkle">{t(`features.${feature.pro}`)}</span>

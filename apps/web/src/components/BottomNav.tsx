@@ -34,7 +34,7 @@ export function BottomNav() {
                 href={tab.href}
                 className={cn(
                   "flex h-16 flex-col items-center justify-center gap-1 text-[11px] font-extrabold uppercase tracking-wider transition",
-                  active ? "text-sky" : "text-muted hover:text-cobalt"
+                  active ? "text-sky" : "text-cobalt/70 hover:text-cobalt"
                 )}
               >
                 <Icon
@@ -76,7 +76,7 @@ export function DesktopRail() {
           <img src="/mascot/logo.png" alt="Aleo" className="h-9 w-9 object-contain" />
         </span>
         <div className="flex flex-col leading-none">
-          <span className="text-xs font-extrabold uppercase tracking-widest text-muted">
+          <span className="text-xs font-extrabold uppercase tracking-widest text-cobalt">
             Aleo
           </span>
           <span className="text-lg font-extrabold text-navy">Chess Royale</span>

@@ -103,7 +103,6 @@ export default function SocialPage() {
                 name={f.display_name ?? `@${f.username}`}
                 subtitle={`@${f.username}`}
                 rankBadge="Silver"
-                online
                 points={f.elo_rating}
                 rightSlot={<ChunkyButton size="sm" variant="success" iconLeft={<Plus className="h-3 w-3" />}>{t("add")}</ChunkyButton>}
               />

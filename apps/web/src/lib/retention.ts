@@ -56,6 +56,9 @@ export type RetentionSummary = {
 };
 
 export function fallbackRetentionSummary(): RetentionSummary {
+  const storedXp = typeof window !== "undefined" ? parseInt(localStorage.getItem("aleo:bp_xp") ?? "0", 10) : 0;
+  const gamesPlayed = typeof window !== "undefined" ? parseInt(localStorage.getItem("aleo:quest_games") ?? "0", 10) : 0;
+
   return {
     profile: { streak_count: 0, longest_streak: 0, coin_balance: 100 },
     daily_quests: [
@@ -65,9 +68,9 @@ export function fallbackRetentionSummary(): RetentionSummary {
         description: "Finish any game mode.",
         reward_coins: 20,
         reward_xp: 120,
-        progress: 0,
+        progress: Math.min(gamesPlayed, 1),
         target: 1,
-        completed_at: null
+        completed_at: gamesPlayed >= 1 ? new Date().toISOString() : null
       },
       {
         id: "solve_5_puzzles",
@@ -85,9 +88,9 @@ export function fallbackRetentionSummary(): RetentionSummary {
         description: "Play one ranked game.",
         reward_coins: 25,
         reward_xp: 140,
-        progress: 0,
+        progress: Math.min(gamesPlayed, 1),
         target: 1,
-        completed_at: null
+        completed_at: gamesPlayed >= 1 ? new Date().toISOString() : null
       }
     ],
     battlepass: {
@@ -101,7 +104,7 @@ export function fallbackRetentionSummary(): RetentionSummary {
       user: {
         user_id: "",
         season_id: 1,
-        xp: 0,
+        xp: storedXp,
         premium: false,
         claimed_free_tiers: [],
         claimed_premium_tiers: []

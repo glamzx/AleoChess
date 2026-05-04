@@ -37,6 +37,29 @@ export function PostGameMock({
   const fen = useGameStore((s) => s.fen);
   const moveHistory = useGameStore((s) => s.moveHistory);
   const [showCoach, setShowCoach] = React.useState(true);
+  const [xpGained, setXpGained] = React.useState(0);
+
+  // Award XP and track quests on mount
+  React.useEffect(() => {
+    const xp = won ? 150 : drew ? 100 : 75;
+    setXpGained(xp);
+
+    // Add XP to battle pass (localStorage)
+    const currentXp = parseInt(localStorage.getItem("aleo:bp_xp") ?? "0", 10);
+    localStorage.setItem("aleo:bp_xp", String(currentXp + xp));
+
+    // Track quests
+    const gamesPlayed = parseInt(localStorage.getItem("aleo:quest_games") ?? "0", 10);
+    localStorage.setItem("aleo:quest_games", String(gamesPlayed + 1));
+
+    // Auto-claim first battle pass tier for everyone
+    const freeClaimed: number[] = JSON.parse(localStorage.getItem("aleo:bp_claimed_free") ?? "[]");
+    if (!freeClaimed.includes(1) && currentXp + xp >= 0) {
+      freeClaimed.push(1);
+      localStorage.setItem("aleo:bp_claimed_free", JSON.stringify(freeClaimed));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const headline = won ? "You won!" : drew ? "Draw!" : "Tough one!";
   const bannerGradient = won
@@ -157,7 +180,7 @@ export function PostGameMock({
           orientation={playerColor === "w" ? "white" : "black"}
           showCoords={false}
         />
-        <p className="mt-2 text-center text-xs font-bold text-muted">
+        <p className="mt-2 text-center text-xs font-bold text-cobalt/70">
           Final position · {moveHistory.length} moves
         </p>
       </motion.div>
@@ -169,9 +192,9 @@ export function PostGameMock({
           <div className="absolute -left-2 top-6 h-3 w-3 rotate-45 bg-white" aria-hidden />
           <p className="text-sm font-bold text-navy">
             {won
-              ? "Brilliant! You outplayed the engine! Let me show you exactly where you gained the edge."
+              ? "Brilliant! You outplayed your opponent! Let me show you exactly where you gained the edge."
               : drew
-                ? "Great fight! A draw against the engine is no joke. Let me find the winning lines you missed."
+                ? "Great fight! A draw is solid. Let me find the winning lines you could have used."
                 : "Every game is a lesson. Let me show you the key turning points."}
           </p>
         </div>
@@ -189,7 +212,7 @@ export function PostGameMock({
             <h3 className="text-lg font-extrabold text-navy">AI Coach Summary</h3>
             <button
               onClick={() => setShowCoach(false)}
-              className="flex items-center gap-1 rounded-chip bg-pale px-2 py-1 text-[10px] font-extrabold text-muted transition hover:bg-lossRed/10 hover:text-lossRed"
+              className="flex items-center gap-1 rounded-chip bg-pale px-2 py-1 text-[10px] font-extrabold text-cobalt/70 transition hover:bg-lossRed/10 hover:text-lossRed"
               title="Skip review"
             >
               <X className="h-3 w-3" />
@@ -209,7 +232,7 @@ export function PostGameMock({
                 <span className="text-xl">{tip.emoji}</span>
                 <div className="flex-1">
                   <h4 className="text-sm font-extrabold text-navy">{tip.title}</h4>
-                  <p className="mt-0.5 text-xs font-bold leading-relaxed text-muted">
+                  <p className="mt-0.5 text-xs font-bold leading-relaxed text-cobalt/70">
                     {tip.body}
                   </p>
                 </div>

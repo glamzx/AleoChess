@@ -28,7 +28,7 @@ export default function BattlePassPage() {
         </span>
         <div>
           <h1 className="text-3xl font-extrabold text-navy">{t("title")}</h1>
-          <p className="text-sm font-bold text-muted">
+          <p className="text-sm font-bold text-cobalt/70">
             {t("subtitle")}
           </p>
         </div>

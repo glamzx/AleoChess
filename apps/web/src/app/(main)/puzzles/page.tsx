@@ -88,7 +88,7 @@ export default function PuzzlesPage() {
                 </div>
                 <div>
                   <div className="text-base font-extrabold text-navy">{p.name}</div>
-                  <div className="text-xs font-bold text-muted">
+                  <div className="text-xs font-bold text-cobalt/70">
                     {pct === 0
                       ? t("startNow")
                       : pct === 1

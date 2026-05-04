@@ -78,7 +78,7 @@ export default function PlayHome() {
           <h1 className="text-2xl font-extrabold text-navy">
             {t("home.greeting", { name })}
           </h1>
-          <p className="text-sm font-bold text-muted">
+          <p className="text-sm font-bold text-cobalt/70">
             {elo} Elo · {myCity?.name ?? me.city}
           </p>
         </div>
@@ -161,7 +161,7 @@ export default function PlayHome() {
             </span>
             <div className="flex-1">
               <h3 className="text-base font-extrabold text-navy">{t("home.dailyRewardReady")}</h3>
-              <p className="text-xs font-bold text-muted">
+              <p className="text-xs font-bold text-cobalt/70">
                 {t("home.dailyRewardBody")}
               </p>
             </div>
@@ -182,7 +182,7 @@ export default function PlayHome() {
           </span>
           <div className="flex-1">
             <h3 className="text-sm font-extrabold text-navy">{t("home.upgradeTitle")}</h3>
-            <p className="text-xs font-bold text-muted">{t("home.upgradeBody")}</p>
+            <p className="text-xs font-bold text-cobalt/70">{t("home.upgradeBody")}</p>
           </div>
           <span className="rounded-chip bg-pale px-2 py-1 text-[10px] font-extrabold uppercase text-cobalt">
             {t("home.soon")}
@@ -258,7 +258,7 @@ export default function PlayHome() {
               </button>
             </div>
             <h2 className="mt-2 text-2xl font-extrabold text-navy">{t("home.tutorialTitle")}</h2>
-            <div className="mt-3 space-y-2 text-sm font-bold text-muted">
+            <div className="mt-3 space-y-2 text-sm font-bold text-cobalt/70">
               <p>{t("home.tutorialPlay")}</p>
               <p>{t("home.tutorialModes")}</p>
               <p>{t("home.tutorialQuests")}</p>
